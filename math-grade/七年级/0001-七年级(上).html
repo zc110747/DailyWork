@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>七年级（上）数学期末模拟卷 · 浙教版</title>
+<style>
+:root{
+  --ink:#1b2430;
+  --navy:#1e3a5f;
+  --line:#c9d2dd;
+  --soft:#f4f7fb;
+  --green:#1f7a4d;
+  --green-bg:#eaf6ef;
+  --red:#b0302a;
+  --red-bg:#fdeeee;
+  --amber:#8a6d1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{
+  background:#eaeef3;
+  font-family:"Times New Roman","Songti SC","SimSun",serif;
+  color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 10px 60px;
+  font-size:16px;line-height:1.62;
+}
+
+/* ============ 工具栏 ============ */
+.toolbar{
+  position:sticky;top:0;z-index:50;
+  width:100%;max-width:920px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:9px 14px;margin:10px 0 14px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line);border-radius:8px;
+  box-shadow:0 2px 10px rgba(20,40,70,.07);
+  font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+  font-size:13px;
+}
+.tb-title{font-weight:700;color:var(--navy);letter-spacing:.4px}
+.tb-title span{font-weight:400;color:#6b7a8c;margin-left:6px;font-size:12px}
+.tb-actions{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-left:auto}
+button{
+  font-family:inherit;font-size:13px;cursor:pointer;
+  padding:5px 11px;border-radius:6px;
+  border:1px solid var(--line);background:#fff;color:var(--navy);
+  transition:.15s;
+}
+button:hover{background:var(--soft);border-color:#9db0c7}
+button.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+button.primary:hover{background:#2a4f7d}
+button.on{background:#e8f1fb;border-color:var(--navy);font-weight:700}
+.switch{display:flex;align-items:center;gap:5px;color:#4a5a6d;cursor:pointer;user-select:none}
+.switch input{width:15px;height:15px;accent-color:var(--navy);cursor:pointer}
+.score-chip{
+  padding:4px 10px;border-radius:20px;background:var(--soft);
+  border:1px solid var(--line);color:#3b4a5b;white-space:nowrap;
+}
+.score-chip b{color:var(--navy);font-size:14px}
+
+/* ============ 试卷 ============ */
+.paper{
+  width:100%;max-width:920px;background:#fff;
+  box-shadow:0 4px 18px rgba(20,40,70,.1);
+  padding:38px 46px 46px;border-radius:8px;
+}
+h1{text-align:center;font-size:25px;font-weight:700;letter-spacing:1.5px;color:var(--navy)}
+.subhead{text-align:center;font-size:13.5px;color:#5a6b7d;padding:3px 0 10px;border-bottom:2px solid var(--navy);margin-bottom:10px}
+.info-line{display:flex;justify-content:space-around;font-size:14px;margin:10px 0 4px;color:var(--navy)}
+.tips{
+  font-size:13px;color:#4d5c6d;background:var(--soft);
+  border-left:3px solid var(--navy);border-radius:4px;
+  padding:7px 12px;margin:12px 0 4px;font-family:"Microsoft YaHei",sans-serif;
+}
+.section-title{
+  font-size:17.5px;font-weight:700;margin:26px 0 6px;padding-left:9px;
+  border-left:5px solid var(--navy);color:#16222e;letter-spacing:.3px;
+}
+
+/* ============ 题目通用 ============ */
+.q{margin:13px 0 9px;position:relative}
+.q-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px}
+.q-num{font-weight:700;margin-right:3px;color:var(--navy)}
+.q-text{flex:1 1 320px}
+.tag{
+  display:none;font-family:"Microsoft YaHei",sans-serif;font-size:11px;
+  color:#7a8798;border:1px solid #dbe2ea;border-radius:3px;
+  padding:0 5px;white-space:nowrap;
+}
+body.show-ans .tag{display:inline-block}
+
+/* 选项 */
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:5px 10px;margin:5px 0 0 22px}
+.opt{
+  cursor:pointer;padding:2px 8px;border-radius:5px;
+  border:1px solid transparent;transition:.13s;user-select:none;
+}
+.opt b{font-weight:700;color:var(--navy);margin-right:3px}
+.opt:hover{background:#f2f6fb;border-color:#cfdbe8}
+.opt.selected{background:#eaf1f9;border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.opt.correct{background:var(--green-bg);border-color:var(--green);color:#14563a}
+.opt.correct b{color:var(--green)}
+.opt.wrong{background:var(--red-bg);border-color:var(--red);color:#7d211d;text-decoration:line-through}
+.opt.wrong b{color:var(--red)}
+.opt.correct::after{content:" ✔";color:var(--green);font-weight:700}
+.opt.wrong::after{content:" ✘";color:var(--red);font-weight:700}
+
+/* 填空 */
+.fill-grid{display:grid;grid-template-columns:1fr;gap:9px 26px;margin:8px 0 4px 22px}
+.bi{
+  font-family:inherit;font-size:15px;color:var(--navy);
+  border:none;border-bottom:1px solid #445;background:transparent;
+  width:96px;text-align:center;padding:1px 2px;outline:none;
+}
+.bi:focus{background:#f0f5fb;border-bottom-color:var(--navy)}
+.bi.ok{color:var(--green);border-bottom-color:var(--green);background:var(--green-bg)}
+.bi.bad{color:var(--red);border-bottom-color:var(--red);background:var(--red-bg)}
+.note{font-size:12.5px;color:#6d7a88;font-family:"Microsoft YaHei",sans-serif}
+
+/* 解答题 */
+.sub-q{margin:4px 0 0 22px}
+.sub-q p{margin:5px 0}
+.work-lines{margin:6px 0 2px 22px}
+.work-lines i{display:block;border-bottom:1px dotted #d3dae3;height:27px}
+
+/* 图形 */
+.svg-wrap{margin:10px 0 6px 22px;overflow-x:auto}
+svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px}
+.svg-cap{font-size:12.5px;color:#6d7a88;margin-left:22px;font-family:"Microsoft YaHei",sans-serif}
+
+/* 答案 */
+.ans-toggle{
+  margin:6px 0 0 22px;font-size:12px;padding:2px 9px;
+  color:var(--green);border-color:#bcd9c9;background:#f6fbf8;
+}
+.ans-toggle::before{content:"▸ "}
+.ans-toggle.on{background:var(--green-bg);font-weight:700}
+.ans-toggle.on::before{content:"▾ "}
+.ans{
+  display:none;margin:8px 0 0 22px;padding:10px 14px;
+  background:#f7fbf8;border:1px solid #d7e8dd;border-left:3px solid var(--green);
+  border-radius:5px;font-size:14px;color:#1d3b2c;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.7;
+}
+.ans.show{display:block}
+.ans .k{font-weight:700;color:var(--green);margin-right:4px}
+.ans p{margin:3px 0}
+.ans .rubric{font-size:12.5px;color:#4f6659;border-top:1px dashed #cfe2d6;margin-top:7px;padding-top:6px}
+.ans .rubric b{color:var(--green)}
+.ans .warn{color:var(--amber)}
+.self-row{
+  margin:8px 0 0 22px;font-size:12.5px;color:#5a6b7d;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+.selfscore{
+  width:44px;font-family:inherit;font-size:13px;text-align:center;
+  border:1px solid var(--line);border-radius:4px;padding:1px 2px;color:var(--navy);
+}
+.fb{font-size:12px;font-weight:700;margin-left:6px}
+.q.ok .fb{color:var(--green)}
+.q.bad .fb{color:var(--red)}
+
+/* 数学排版 */
+.frac{display:inline-flex;flex-direction:column;vertical-align:-.42em;text-align:center;font-size:.92em;line-height:1.15;margin:0 3px}
+.frac>span:first-child{border-bottom:1.2px solid currentColor;padding:0 4px 1px}
+.frac>span:last-child{padding:1px 4px 0}
+.sq>.rad{border-top:1.2px solid currentColor;padding:0 2px;margin-left:-1px}
+
+/* 页脚 */
+.foot{
+  margin-top:26px;padding-top:10px;border-top:1px solid var(--line);
+  font-size:12.5px;color:#6d7a88;display:flex;justify-content:space-between;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+
+/* ============ 打印 ============ */
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  body{background:#fff;padding:0;font-size:14.5px;line-height:1.5}
+  .toolbar,.ans-toggle,.self-row,.fb,.tips .no-print{display:none!important}
+  .paper{box-shadow:none;border-radius:0;padding:0;max-width:none}
+  .q{break-inside:avoid;page-break-inside:avoid}
+  .section-title{break-after:avoid;page-break-after:avoid}
+  .svg-wrap{break-inside:avoid}
+  .ans{break-inside:avoid;background:#fbfcfb}
+  svg{background:#fff}
+  .work-lines i{height:26px}
+}
+@media (max-width:680px){
+  body{padding:0 4px 40px}
+  .paper{padding:22px 16px 26px}
+  .opts{grid-template-columns:1fr 1fr}
+  .fill-grid{grid-template-columns:1fr}
+  .info-line{font-size:12.5px}
+  h1{font-size:20px}
+  .tb-title{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="tb-title">七年级（上）数学期末模拟卷<span>浙教版 · 120 分</span></div>
+  <div class="tb-actions">
+    <label class="switch"><input type="checkbox" id="instant" checked><span>即时判分</span></label>
+    <button id="btn-judge" class="primary">判分</button>
+    <button id="btn-ans">显示答案</button>
+    <button id="btn-reset">重置</button>
+    <button id="btn-print-q">打印试卷</button>
+    <button id="btn-print-a">打印含答案</button>
+    <div class="score-chip">客观 <b id="obj-score">0</b>/54 ｜ 自评 <b id="self-score">0</b>/66 ｜ 合计 <b id="total-score">0</b>/120</div>
+  </div>
+</div>
+
+<div class="paper" id="paper">
+  <h1>七年级上学期数学期末模拟卷</h1>
+  <div class="subhead">（浙教版 · 七年级上册）满分 120 分 · 考试时间 120 分钟</div>
+  <div class="info-line">
+    <span>班级：____________</span>
+    <span>姓名：____________</span>
+    <span>学号：____________</span>
+    <span>得分：__________</span>
+  </div>
+
+  <div class="tips">
+    <b>考生须知：</b>1. 全卷共 24 小题，满分 120 分。2. 答案必须写在答题处，写在试题卷上无效。
+    3. 不得使用计算器。4. 参考数据：1° = 60′。5. 作图（含画辅助线）可用铅笔，确认后须描黑。
+  </div>
+
+  <!-- ================= 一、选择题 ================= -->
+  <div class="section-title">一、选择题（本大题有 10 小题，每小题 3 分，共 30 分。每小题只有一个选项是正确的）</div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="A">
+    <div class="q-head"><span class="q-num">1.</span><span class="q-text">−2026 的相反数是（　　）</span><span class="tag">有理数 · 相反数</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 2026</div>
+      <div class="opt" data-opt="B"><b>B.</b> −2026</div>
+      <div class="opt" data-opt="C"><b>C.</b> <span class="frac"><span>1</span><span>2026</span></span></div>
+      <div class="opt" data-opt="D"><b>D.</b> −<span class="frac"><span>1</span><span>2026</span></span></div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>A</p>
+      <p><span class="k">解析：</span>只有符号不同的两个数互为相反数，−2026 的相反数是 2026。注意 2026 与 <span class="frac"><span>1</span><span>2026</span></span> 互为倒数，不要混淆。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">2.</span><span class="q-text">下列各数中，是无理数的是（　　）</span><span class="tag">实数 · 无理数</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 3.14</div>
+      <div class="opt" data-opt="B"><b>B.</b> −<span class="sq">√<span class="rad">4</span></span></div>
+      <div class="opt" data-opt="C"><b>C.</b> <span class="sq">√<span class="rad">7</span></span></div>
+      <div class="opt" data-opt="D"><b>D.</b> <span class="frac"><span>22</span><span>7</span></span></div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>3.14 是有限小数，<span class="frac"><span>22</span><span>7</span></span> 是分数，−<span class="sq">√<span class="rad">4</span></span> = −2 是整数，三者都是有理数；<span class="sq">√<span class="rad">7</span></span> 开方开不尽，是无限不循环小数，属无理数。</p>
+      <p class="warn">易错：π 是无理数，但 3.14 不是 π。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="B">
+    <div class="q-head"><span class="q-num">3.</span><span class="q-text">塔克拉玛干沙漠"锁边"工程防护带全长约 3 046 000 米。将 3 046 000 <b>精确到万位</b>，并用科学记数法表示，结果是（　　）</span><span class="tag">有理数 · 科学记数法与近似数</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 3.046×10<sup>6</sup></div>
+      <div class="opt" data-opt="B"><b>B.</b> 3.05×10<sup>6</sup></div>
+      <div class="opt" data-opt="C"><b>C.</b> 3.0×10<sup>6</sup></div>
+      <div class="opt" data-opt="D"><b>D.</b> 30.5×10<sup>5</sup></div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>B</p>
+      <p><span class="k">解析：</span>3 046 000 = 304.6 万，万位上是 4，千位上是 6 &gt; 5，故精确到万位得 305 万，即 3 050 000 = 3.05×10<sup>6</sup>。</p>
+      <p class="warn">两点要求缺一不可：① 科学记数法写成 a×10<sup>n</sup> 且 1 ≤ |a| &lt; 10（排除 D）；② 精确到万位要按千位数字四舍五入（排除 A、C）。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">4.</span><span class="q-text">下列计算正确的是（　　）</span><span class="tag">整式 · 合并同类项</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 3a + 2b = 5ab</div>
+      <div class="opt" data-opt="B"><b>B.</b> 5a<sup>2</sup> − 2a<sup>2</sup> = 3</div>
+      <div class="opt" data-opt="C"><b>C.</b> 4a<sup>2</sup>b − 3ba<sup>2</sup> = a<sup>2</sup>b</div>
+      <div class="opt" data-opt="D"><b>D.</b> 7a + a = 7a<sup>2</sup></div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>A 中 3a 与 2b 不是同类项，不能合并；B 中 5a<sup>2</sup> − 2a<sup>2</sup> = 3a<sup>2</sup>（系数相减，字母部分不变）；D 中 7a + a = 8a；C 中 4a<sup>2</sup>b 与 −3ba<sup>2</sup> 是同类项，系数 4 − 3 = 1，得 a<sup>2</sup>b。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="A">
+    <div class="q-head"><span class="q-num">5.</span><span class="q-text">若关于 x 的方程 2x + a = 3 与方程 3x − 1 = 5 的解相同，则 a 的值是（　　）</span><span class="tag">一元一次方程 · 同解方程</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> −1</div>
+      <div class="opt" data-opt="B"><b>B.</b> 1</div>
+      <div class="opt" data-opt="C"><b>C.</b> 5</div>
+      <div class="opt" data-opt="D"><b>D.</b> 7</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>A</p>
+      <p><span class="k">解析：</span>由 3x − 1 = 5 得 x = 2。因两方程解相同，把 x = 2 代入 2x + a = 3 得 4 + a = 3，所以 a = −1。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">6.</span><span class="q-text">如图，点 O 在直线 AB 上，射线 OC 在 ∠AOB 内部，OD 平分 ∠AOC，OE 平分 ∠BOC，则 ∠DOE 的度数是（　　）</span><span class="tag">图形 · 角平分线</span></div>
+    <div class="svg-wrap">
+      <svg width="354" height="152" viewBox="0 0 354 152" role="img" aria-label="第6题图">
+        <line x1="50" y1="120" x2="330" y2="120" stroke="#1e3a5f" stroke-width="2"/>
+        <circle cx="190" cy="120" r="2.8" fill="#b0302a"/>
+        <line x1="190" y1="120" x2="156" y2="26" stroke="#1e3a5f" stroke-width="1.8"/>
+        <line x1="190" y1="120" x2="106" y2="61" stroke="#b0302a" stroke-width="1.8"/>
+        <line x1="190" y1="120" x2="247" y2="38" stroke="#1f7a4d" stroke-width="1.8"/>
+        <text x="36" y="114" font-size="14" fill="#1e3a5f">A</text>
+        <text x="333" y="114" font-size="14" fill="#1e3a5f">B</text>
+        <text x="182" y="140" font-size="14" fill="#1e3a5f">O</text>
+        <text x="146" y="20" font-size="14" fill="#1e3a5f">C</text>
+        <text x="92" y="57" font-size="14" fill="#b0302a">D</text>
+        <text x="252" y="33" font-size="14" fill="#1f7a4d">E</text>
+      </svg>
+    </div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 45°</div>
+      <div class="opt" data-opt="B"><b>B.</b> 60°</div>
+      <div class="opt" data-opt="C"><b>C.</b> 90°</div>
+      <div class="opt" data-opt="D"><b>D.</b> 135°</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>点 O 在直线 AB 上，所以 ∠AOC + ∠BOC = 180°。又 ∠DOC = ½∠AOC，∠EOC = ½∠BOC，<br>
+      故 ∠DOE = ∠DOC + ∠EOC = ½(∠AOC + ∠BOC) = ½×180° = 90°。<br>
+      结论与 ∠AOC 的具体度数无关，∠DOE 恒为 90°。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">7.</span><span class="q-text">已知 a<sup>2</sup> + 2a = 3，则代数式 2a<sup>2</sup> + 4a − 1 的值是（　　）</span><span class="tag">代数式 · 整体代入</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 3</div>
+      <div class="opt" data-opt="B"><b>B.</b> 4</div>
+      <div class="opt" data-opt="C"><b>C.</b> 5</div>
+      <div class="opt" data-opt="D"><b>D.</b> 6</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>2a<sup>2</sup> + 4a − 1 = 2(a<sup>2</sup> + 2a) − 1 = 2×3 − 1 = 5。把 a<sup>2</sup> + 2a 看作一个整体，无需先求出 a。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="B">
+    <div class="q-head"><span class="q-num">8.</span><span class="q-text">某商品按成本价提高 40% 后标价，再按标价的 8 折出售，售价为 224 元。设该商品的成本价为 x 元，则可列方程（　　）</span><span class="tag">一元一次方程 · 销售问题</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> x·40%·80% = 224</div>
+      <div class="opt" data-opt="B"><b>B.</b> x(1+40%)·80% = 224</div>
+      <div class="opt" data-opt="C"><b>C.</b> x·40% = 224×80%</div>
+      <div class="opt" data-opt="D"><b>D.</b> x(1+40%) = 224×80%</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>B（顺便可得 x = 200 元）</p>
+      <p><span class="k">解析：</span>标价 = x(1 + 40%)，售价 = 标价×80%，即 x(1 + 40%)·80% = 224。1.4×0.8 = 1.12，故 x = 224 ÷ 1.12 = 200（元）。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="A">
+    <div class="q-head"><span class="q-num">9.</span><span class="q-text">数轴上点 A 表示的数是 −3，点 B 表示的数是 2。若点 P 到点 A、B 的距离相等，则点 P 表示的数是（　　）</span><span class="tag">有理数 · 数轴与中点</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> −0.5</div>
+      <div class="opt" data-opt="B"><b>B.</b> 0.5</div>
+      <div class="opt" data-opt="C"><b>C.</b> −1</div>
+      <div class="opt" data-opt="D"><b>D.</b> 1</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>A</p>
+      <p><span class="k">解析：</span>到 A、B 距离相等的点 P 是线段 AB 的中点，其表示的数为 (−3 + 2) ÷ 2 = −0.5。<br>
+      也可设 P 表示 x，由 |x − (−3)| = |x − 2| 得 x = −0.5。</p>
+      <p class="warn">易错：中点坐标是两个端点坐标的<b>平均数</b>，不是两数之差再取半。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="A">
+    <div class="q-head"><span class="q-num">10.</span><span class="q-text">用大小相同的小三角形按下图方式拼成大三角形：第①个图形由 1 个小三角形组成，第②个由 4 个组成，第③个由 9 个组成……按此规律，第 n 个图形中小三角形的个数是（　　）</span><span class="tag">代数式 · 图形规律</span></div>
+    <div class="svg-wrap">
+      <svg width="560" height="182" viewBox="0 0 560 182" role="img" aria-label="第10题图">
+        <g fill="#eef3fa" stroke="#1e3a5f" stroke-width="1.5" stroke-linejoin="round">
+          <!-- ① n=1 -->
+          <polygon points="49.0,70.4 91.0,70.4 70.0,34.0"/>
+          <!-- ② n=2 -->
+          <polygon points="209.0,70.4 251.0,70.4 230.0,34.0"/>
+          <polygon points="188.0,106.7 230.0,106.7 209.0,70.4"/>
+          <polygon points="230.0,106.7 272.0,106.7 251.0,70.4"/>
+          <polygon points="209.0,70.4 251.0,70.4 230.0,106.7"/>
+          <!-- ③ n=3 -->
+          <polygon points="409.0,70.4 451.0,70.4 430.0,34.0"/>
+          <polygon points="388.0,106.7 430.0,106.7 409.0,70.4"/>
+          <polygon points="430.0,106.7 472.0,106.7 451.0,70.4"/>
+          <polygon points="367.0,143.1 409.0,143.1 388.0,106.7"/>
+          <polygon points="409.0,143.1 451.0,143.1 430.0,106.7"/>
+          <polygon points="451.0,143.1 493.0,143.1 472.0,106.7"/>
+          <polygon points="409.0,70.4 451.0,70.4 430.0,106.7"/>
+          <polygon points="388.0,106.7 430.0,106.7 409.0,143.1"/>
+          <polygon points="430.0,106.7 472.0,106.7 451.0,143.1"/>
+        </g>
+        <text x="32" y="62" font-size="14" fill="#1e3a5f">①</text>
+        <text x="170" y="62" font-size="14" fill="#1e3a5f">②</text>
+        <text x="348" y="62" font-size="14" fill="#1e3a5f">③</text>
+        <text x="70" y="170" font-size="12.5" fill="#3b4a5b" text-anchor="middle">1 个</text>
+        <text x="230" y="170" font-size="12.5" fill="#3b4a5b" text-anchor="middle">4 个</text>
+        <text x="430" y="170" font-size="12.5" fill="#3b4a5b" text-anchor="middle">9 个</text>
+      </svg>
+    </div>
+    <div class="svg-cap">（图中每个小三角形的大小都相同，只数小三角形的个数）</div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> n<sup>2</sup></div>
+      <div class="opt" data-opt="B"><b>B.</b> 2n − 1</div>
+      <div class="opt" data-opt="C"><b>C.</b> n(n+1)/2</div>
+      <div class="opt" data-opt="D"><b>D.</b> 3n − 3</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>A</p>
+      <p><span class="k">解析：</span>个数依次为 1 = 1<sup>2</sup>，4 = 2<sup>2</sup>，9 = 3<sup>2</sup>，猜想第 n 个图形有 n<sup>2</sup> 个小三角形。<br>
+      验证：第 n 个图形共 n 行，第 i 行有 (2i − 1) 个小三角形，总和 1 + 3 + 5 + … + (2n − 1) = n<sup>2</sup>。</p>
+    </div>
+  </div>
+
+  <!-- ================= 二、填空题 ================= -->
+  <div class="section-title">二、填空题（本大题有 6 小题，每小题 4 分，共 24 分。第 11、12 题每空 2 分，其余每空 4 分）</div>
+
+  <div class="fill-grid">
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">11.</span><span class="q-text">计算：|−5| = <input class="bi" data-answers="5" autocomplete="off">；−3<sup>2</sup> = <input class="bi" data-answers="-9|（-9）|(-9)" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <div class="ans">
+        <p><span class="k">答案：</span>5；−9</p>
+        <p><span class="k">解析：</span>|−5| 表示 −5 到原点的距离，等于 5；−3<sup>2</sup> 是 3<sup>2</sup> 的相反数，即 −(3×3) = −9，不是 9。</p>
+      </div>
+    </div>
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">12.</span><span class="q-text">计算：<span class="sq">√<span class="rad">16</span></span> = <input class="bi" data-answers="4" autocomplete="off">；<span class="sq">√<span class="rad">16</span></span> 的平方根是 <input class="bi" data-answers="±2|+-2|2或-2|-2或2|±2" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <div class="ans">
+        <p><span class="k">答案：</span>4；±2</p>
+        <p><span class="k">解析：</span><span class="sq">√<span class="rad">16</span></span> 表示 16 的算术平方根，等于 4。第二空问的是 <b>4 的平方根</b>，正数有两个平方根且互为相反数，故为 ±2。</p>
+        <p class="warn">易错：把第二空填成 ±4（那是 16 的平方根），漏掉"±"也不给分。</p>
+      </div>
+    </div>
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">13.</span><span class="q-text">若单项式 2x<sup>m</sup>y<sup>2</sup> 与 −3x<sup>3</sup>y<sup>n</sup> 是同类项，则 m + n = <input class="bi" data-answers="5" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <div class="ans">
+        <p><span class="k">答案：</span>5</p>
+        <p><span class="k">解析：</span>同类项要求相同字母的指数分别相同，故 m = 3，n = 2，m + n = 5。</p>
+      </div>
+    </div>
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">14.</span><span class="q-text">一个角的余角是 25°18′，则这个角的补角是 <input class="bi" data-answers="115°18′|115度18分|115°18分|115°18|115度18′" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <div class="ans">
+        <p><span class="k">答案：</span>115°18′</p>
+        <p><span class="k">解析：</span>这个角 = 90° − 25°18′ = 64°42′；<br>
+        它的补角 = 180° − 64°42′ = 115°18′。<br>
+        另解：同角的补角比余角大 90°，115°18′ = 25°18′ + 90°，更快。</p>
+        <p class="warn">角度计算要"借 1° 当 60′"：90° = 89°60′。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="q" data-type="blank" data-score="4">
+    <div class="q-head"><span class="q-num">15.</span><span class="q-text">已知线段 AB = 10 cm，点 C 是线段 AB 的中点，点 D 在<b>直线</b> AB 上，且 BD = 2 cm，则 CD = <input class="bi" data-answers="3或7|7或3|3,7|7,3|3厘米或7厘米" autocomplete="off"> cm。</span></div>
+    <div class="note" style="margin-left:22px">（提示：点 D 在直线 AB 上，位置有两种可能，需分类讨论）</div>
+    <span class="fb"></span>
+    <div class="ans">
+      <p><span class="k">答案：</span>3 或 7</p>
+      <p><span class="k">解析：</span>C 是 AB 中点，故 BC = 5 cm，点 C 距点 B 为 5 cm。<br>
+      ① 点 D 在线段 AB 上（在 B 的左侧）：CD = BC − BD = 5 − 2 = 3（cm）；<br>
+      ② 点 D 在 AB 的延长线上（在 B 的右侧）：CD = BC + BD = 5 + 2 = 7（cm）。<br>
+      所以 CD = 3 cm 或 7 cm。</p>
+      <p class="rubric"><b>评分：</b>只写出一个结果给 2 分，两个结果齐全给 4 分。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="blank" data-score="4">
+    <div class="q-head"><span class="q-num">16.</span><span class="q-text">按如图所示的程序计算，若开始输入的 x 的值为 3，则最后输出的结果是 <input class="bi" data-answers="156" autocomplete="off">。</span></div>
+    <div class="svg-wrap">
+      <svg width="600" height="158" viewBox="0 0 600 158" role="img" aria-label="第16题程序图">
+        <defs>
+          <marker id="arw" markerWidth="9" markerHeight="7" refX="8.5" refY="3.5" orient="auto">
+            <polygon points="0 0, 9 3.5, 0 7" fill="#1e3a5f"/>
+          </marker>
+        </defs>
+        <rect x="12" y="55" width="84" height="42" rx="7" fill="#eef3fa" stroke="#1e3a5f" stroke-width="1.7"/>
+        <text x="54" y="81" font-size="13.5" fill="#1e3a5f" text-anchor="middle">输入 x</text>
+        <line x1="96" y1="76" x2="124" y2="76" stroke="#1e3a5f" stroke-width="1.7" marker-end="url(#arw)"/>
+        <rect x="128" y="53" width="140" height="46" rx="7" fill="#eef3fa" stroke="#1e3a5f" stroke-width="1.7"/>
+        <text x="198" y="80" font-size="13.5" fill="#1e3a5f" text-anchor="middle">计算 x(x+1)</text>
+        <line x1="268" y1="76" x2="296" y2="76" stroke="#1e3a5f" stroke-width="1.7" marker-end="url(#arw)"/>
+        <polygon points="365,26 430,76 365,126 300,76" fill="#eef3fa" stroke="#1e3a5f" stroke-width="1.7"/>
+        <text x="365" y="81" font-size="13" fill="#1e3a5f" text-anchor="middle">结果 ≥ 20 ？</text>
+        <line x1="430" y1="76" x2="462" y2="76" stroke="#1e3a5f" stroke-width="1.7" marker-end="url(#arw)"/>
+        <text x="440" y="68" font-size="12" fill="#1e3a5f">是</text>
+        <rect x="466" y="55" width="74" height="42" rx="7" fill="#eef3fa" stroke="#1e3a5f" stroke-width="1.7"/>
+        <text x="503" y="81" font-size="13.5" fill="#1e3a5f" text-anchor="middle">输出</text>
+        <line x1="365" y1="126" x2="365" y2="142" stroke="#1e3a5f" stroke-width="1.7"/>
+        <line x1="365" y1="142" x2="198" y2="142" stroke="#1e3a5f" stroke-width="1.7"/>
+        <line x1="198" y1="142" x2="198" y2="103" stroke="#1e3a5f" stroke-width="1.7" marker-end="url(#arw)"/>
+        <text x="372" y="138" font-size="12" fill="#1e3a5f">否</text>
+        <text x="232" y="136" font-size="12" fill="#1e3a5f">把结果作为新的 x</text>
+      </svg>
+    </div>
+    <span class="fb"></span>
+    <div class="ans">
+      <p><span class="k">答案：</span>156</p>
+      <p><span class="k">解析：</span>输入 x = 3：3×(3+1) = 12，12 &lt; 20，不输出，把 12 作为新的 x 继续计算；<br>
+      12×(12+1) = 156，156 ≥ 20，输出 156。</p>
+    </div>
+  </div>
+
+  <!-- ================= 三、解答题 ================= -->
+  <div class="section-title">三、解答题（本大题有 8 小题，共 66 分。解答需写出必要的文字说明、演算步骤或推理过程）</div>
+
+  <div class="q" data-type="essay" data-score="6">
+    <div class="q-head"><span class="q-num">17.</span><span class="q-text">（本题 6 分）计算：</span><span class="tag">有理数 · 混合运算</span></div>
+    <div class="sub-q">
+      <p>（1）−3<sup>2</sup> + |−2| − (−4)；</p>
+      <p>（2）<span class="sq">√<span class="rad">25</span></span> − ∛(−8) + (−1)<sup>2026</sup>。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>原式 = −9 + 2 + 4 = −3</p>
+      <p><span class="k">（2）</span>原式 = 5 − (−2) + 1 = 5 + 2 + 1 = 8</p>
+      <p><span class="k">关键：</span>√25 = 5；∛(−8) = −2（负数有立方根，且为负）；(−1)<sup>2026</sup> = 1（偶次方为正）。</p>
+      <p class="rubric"><b>评分：</b>每小题 3 分——算对 −3<sup>2</sup> = −9、∛(−8) = −2 各占 1 分，最终结果各 2 分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="8">
+    <div class="q-head"><span class="q-num">18.</span><span class="q-text">（本题 8 分）解方程：</span><span class="tag">一元一次方程 · 解法</span></div>
+    <div class="sub-q">
+      <p>（1）5x − 2 = 3x + 6；</p>
+      <p>（2）<span class="frac"><span>2x − 1</span><span>3</span></span> − <span class="frac"><span>x + 2</span><span>2</span></span> = 1。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>移项，得 5x − 3x = 6 + 2；合并同类项，得 2x = 8；系数化为 1，得 <b>x = 4</b>。</p>
+      <p><span class="k">（2）</span>去分母（两边同乘 6），得 2(2x − 1) − 3(x + 2) = 6；<br>
+      去括号，得 4x − 2 − 3x − 6 = 6；<br>
+      合并同类项，得 x − 8 = 6；<br>
+      移项，得 <b>x = 14</b>。</p>
+      <p class="rubric"><b>评分：</b>（1）4 分（移项 2 分，结果 2 分）；（2）4 分（去分母 1 分，去括号 1 分，合并移项 1 分，结果 1 分）。去分母时漏乘不含分母的项 1，本题不得分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="6">
+    <div class="q-head"><span class="q-num">19.</span><span class="q-text">（本题 6 分）先化简，再求值：3(2a<sup>2</sup> − ab) − 2(3a<sup>2</sup> − 2ab)，其中 a = −1，b = 2。</span><span class="tag">整式 · 化简求值</span></div>
+    <div class="work-lines"><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">解：</span>原式 = 6a<sup>2</sup> − 3ab − 6a<sup>2</sup> + 4ab = (6 − 6)a<sup>2</sup> + (−3 + 4)ab = ab。</p>
+      <p>当 a = −1，b = 2 时，原式 = (−1)×2 = <b>−2</b>。</p>
+      <p class="rubric"><b>评分：</b>去括号正确 2 分，合并同类项得 ab 2 分，代入求值 2 分。未化简就直接代入求值的，最多给 2 分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="8">
+    <div class="q-head"><span class="q-num">20.</span><span class="q-text">（本题 8 分）如图，点 C 在线段 AB 上，AB = 8 cm，AC = 3 cm，M 是 AB 的中点，N 是 AC 的中点。</span><span class="tag">图形 · 线段的和差</span></div>
+    <div class="svg-wrap">
+      <svg width="470" height="132" viewBox="0 0 470 132" role="img" aria-label="第20题图">
+        <defs>
+          <marker id="d1" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0 0, 7 3, 0 6" fill="#6b7a8c"/></marker>
+          <marker id="d2" markerWidth="7" markerHeight="6" refX="1" refY="3" orient="auto"><polygon points="7 0, 0 3, 7 6" fill="#6b7a8c"/></marker>
+        </defs>
+        <line x1="60" y1="62" x2="412" y2="62" stroke="#1e3a5f" stroke-width="2.2"/>
+        <circle cx="60" cy="62" r="3" fill="#1e3a5f"/>
+        <circle cx="126" cy="62" r="3" fill="#1f7a4d"/>
+        <circle cx="192" cy="62" r="3" fill="#1e3a5f"/>
+        <circle cx="236" cy="62" r="3" fill="#1f7a4d"/>
+        <circle cx="412" cy="62" r="3" fill="#1e3a5f"/>
+        <text x="52" y="52" font-size="14" fill="#1e3a5f">A</text>
+        <text x="187" y="52" font-size="14" fill="#1e3a5f">C</text>
+        <text x="406" y="52" font-size="14" fill="#1e3a5f">B</text>
+        <text x="120" y="83" font-size="14" fill="#1f7a4d">N</text>
+        <text x="230" y="83" font-size="14" fill="#1f7a4d">M</text>
+        <!-- 3cm -->
+        <line x1="60" y1="34" x2="192" y2="34" stroke="#6b7a8c" stroke-width="1" marker-start="url(#d2)" marker-end="url(#d1)"/>
+        <text x="126" y="29" font-size="12" fill="#3b4a5b" text-anchor="middle">3 cm</text>
+        <!-- 8cm -->
+        <line x1="60" y1="106" x2="412" y2="106" stroke="#6b7a8c" stroke-width="1" marker-start="url(#d2)" marker-end="url(#d1)"/>
+        <line x1="60" y1="100" x2="60" y2="112" stroke="#c2ccd8" stroke-width="1"/>
+        <line x1="412" y1="100" x2="412" y2="112" stroke="#c2ccd8" stroke-width="1"/>
+        <text x="330" y="100" font-size="12" fill="#3b4a5b" text-anchor="middle">8 cm</text>
+      </svg>
+    </div>
+    <div class="sub-q">
+      <p>（1）求线段 BC 的长；</p>
+      <p>（2）求线段 MN 的长（要求写出推理过程）。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>因为点 C 在线段 AB 上，所以 BC = AB − AC = 8 − 3 = <b>5</b>（cm）。</p>
+      <p><span class="k">（2）</span>因为 M 是 AB 的中点，所以 AM = ½AB = 4 cm；<br>
+      因为 N 是 AC 的中点，所以 AN = ½AC = 1.5 cm；<br>
+      又点 N 在线段 AM 上，所以 MN = AM − AN = 4 − 1.5 = <b>2.5</b>（cm）。</p>
+      <p><span class="k">另解：</span>MN = ½AB − ½AC = ½(AB − AC) = ½BC = 2.5 cm。</p>
+      <p class="rubric"><b>评分：</b>（1）3 分（过程 1 分，结果 2 分）；（2）5 分（AM = 4、AN = 1.5 各 1 分，说明 N 在 AM 上 1 分，结果 2 分）。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="8">
+    <div class="q-head"><span class="q-num">21.</span><span class="q-text">（本题 8 分）学校为运动会购买笔记本和钢笔共 30 件作为奖品。已知笔记本每本 6 元，钢笔每支 10 元，共花费 216 元。求笔记本和钢笔各买了多少件。</span><span class="tag">一元一次方程 · 应用（分配问题）</span></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">解：</span>设购买笔记本 x 本，则钢笔 (30 − x) 支。</p>
+      <p>依题意得：6x + 10(30 − x) = 216。</p>
+      <p>去括号，得 6x + 300 − 10x = 216；合并，得 −4x = −84；解得 x = 21。</p>
+      <p>30 − x = 9。</p>
+      <p><b>答：购买笔记本 21 本，钢笔 9 支。</b></p>
+      <p class="rubric"><b>评分：</b>设未知数 1 分，列方程 3 分，解方程 2 分，答 2 分。检验：21×6 + 9×10 = 126 + 90 = 216（元），符合题意。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="10">
+    <div class="q-head"><span class="q-num">22.</span><span class="q-text">（本题 10 分）如图，点 O 在直线 AB 上，∠AOC = 50°，OD 平分 ∠BOC。</span><span class="tag">图形 · 角的和差与垂线</span></div>
+    <div class="svg-wrap">
+      <svg width="400" height="172" viewBox="0 0 400 172" role="img" aria-label="第22题图">
+        <line x1="50" y1="140" x2="350" y2="140" stroke="#1e3a5f" stroke-width="2"/>
+        <circle cx="200" cy="140" r="2.8" fill="#b0302a"/>
+        <line x1="200" y1="140" x2="124" y2="50" stroke="#1e3a5f" stroke-width="1.8"/>
+        <line x1="200" y1="140" x2="250" y2="33" stroke="#1e3a5f" stroke-width="1.8"/>
+        <!-- 50° 弧：自 OA 向 OC 扫过，凸向远离 O 的一侧 -->
+        <path d="M 160.0 138.6 A 40 40 0 0 1 173.2 110.3" fill="none" stroke="#b0302a" stroke-width="1.2"/>
+        <text x="147" y="134" font-size="11.5" fill="#b0302a" text-anchor="middle">50°</text>
+        <!-- 等角标记（OD 平分 ∠BOC） -->
+        <path d="M 256.4 114.3 A 62 62 0 0 0 247.1 99.7" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+        <path d="M 200.5 78.0 A 62 62 0 0 0 183.4 80.2" fill="none" stroke="#1e3a5f" stroke-width="1.3"/>
+        <text x="38" y="134" font-size="14" fill="#1e3a5f">A</text>
+        <text x="352" y="134" font-size="14" fill="#1e3a5f">B</text>
+        <text x="192" y="160" font-size="14" fill="#1e3a5f">O</text>
+        <text x="110" y="42" font-size="14" fill="#1e3a5f">C</text>
+        <text x="256" y="27" font-size="14" fill="#1e3a5f">D</text>
+      </svg>
+    </div>
+    <div class="sub-q">
+      <p>（1）求 ∠BOC 与 ∠COD 的度数；</p>
+      <p>（2）求 ∠AOD 的度数；</p>
+      <p>（3）作射线 OE，使 ∠DOE = 90°，求 ∠BOE 的度数。</p>
+      <p class="note">注：图中未画出射线 OE。满足 ∠DOE = 90° 的射线 OE 有两种位置，请分类讨论并分别求出 ∠BOE。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>因为点 O 在直线 AB 上，所以 ∠AOC + ∠BOC = 180°，<br>
+      故 ∠BOC = 180° − 50° = <b>130°</b>。<br>
+      因为 OD 平分 ∠BOC，所以 ∠COD = ∠DOB = ½∠BOC = <b>65°</b>。</p>
+      <p><span class="k">（2）</span>∠AOD = ∠AOC + ∠COD = 50° + 65° = <b>115°</b>。</p>
+      <p><span class="k">（3）</span>由上知 ∠DOB = 65°，又 ∠DOE = 90°，分两种情况：</p>
+      <p>① 当 OE 与 OB 在 OD 的<b>同侧</b>（OE 在直线 AB 下方）时：<br>
+      ∠BOE = ∠DOE − ∠DOB = 90° − 65° = <b>25°</b>；</p>
+      <p>② 当 OE 与 OB 在 OD 的<b>异侧</b>（OE 在直线 AB 上方）时：<br>
+      ∠BOE = ∠DOE + ∠DOB = 90° + 65° = <b>155°</b>。</p>
+      <p><b>答：∠BOE = 25° 或 155°。</b></p>
+      <div class="svg-wrap" style="margin:8px 0 0 0">
+        <svg width="400" height="178" viewBox="0 0 400 178" role="img" aria-label="射线OE的两种位置">
+          <!-- 情况①：OE 与 OB 在 OD 同侧（AB 下方） -->
+          <g>
+            <line x1="10" y1="100" x2="175" y2="100" stroke="#1e3a5f" stroke-width="1.8"/>
+            <line x1="95" y1="100" x2="59" y2="57" stroke="#1e3a5f" stroke-width="1.4"/>
+            <line x1="95" y1="100" x2="119" y2="49" stroke="#1e3a5f" stroke-width="1.4"/>
+            <line x1="95" y1="100" x2="146" y2="124" stroke="#b0302a" stroke-width="1.6"/>
+            <circle cx="95" cy="100" r="2.4" fill="#1e3a5f"/>
+            <text x="3" y="95" font-size="12" fill="#1e3a5f">A</text>
+            <text x="179" y="95" font-size="12" fill="#1e3a5f">B</text>
+            <text x="88" y="116" font-size="12" fill="#1e3a5f">O</text>
+            <text x="46" y="52" font-size="12" fill="#1e3a5f">C</text>
+            <text x="123" y="42" font-size="12" fill="#1e3a5f">D</text>
+            <text x="151" y="137" font-size="12" fill="#b0302a">E</text>
+            <text x="95" y="164" font-size="10.5" fill="#4f6659" text-anchor="middle">① ∠BOE = 90°−65° = 25°</text>
+          </g>
+          <!-- 情况②：OE 与 OB 在 OD 异侧（AB 上方） -->
+          <g>
+            <line x1="215" y1="100" x2="380" y2="100" stroke="#1e3a5f" stroke-width="1.8"/>
+            <line x1="300" y1="100" x2="264" y2="57" stroke="#1e3a5f" stroke-width="1.4"/>
+            <line x1="300" y1="100" x2="324" y2="49" stroke="#1e3a5f" stroke-width="1.4"/>
+            <line x1="300" y1="100" x2="249" y2="76" stroke="#b0302a" stroke-width="1.6" stroke-dasharray="4,2"/>
+            <circle cx="300" cy="100" r="2.4" fill="#1e3a5f"/>
+            <text x="207" y="95" font-size="12" fill="#1e3a5f">A</text>
+            <text x="384" y="95" font-size="12" fill="#1e3a5f">B</text>
+            <text x="293" y="116" font-size="12" fill="#1e3a5f">O</text>
+            <text x="251" y="52" font-size="12" fill="#1e3a5f">C</text>
+            <text x="328" y="42" font-size="12" fill="#1e3a5f">D</text>
+            <text x="236" y="71" font-size="12" fill="#b0302a">E</text>
+            <text x="300" y="164" font-size="10.5" fill="#4f6659" text-anchor="middle">② ∠BOE = 90°+65° = 155°</text>
+          </g>
+        </svg>
+      </div>
+      <p class="rubric"><b>评分：</b>（1）4 分（∠BOC 2 分，∠COD 2 分）；（2）2 分；（3）4 分——只讨论一种情况得 2 分，两种都讨论且结果正确得 4 分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="10" data-max="10"> / 10 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="10">
+    <div class="q-head"><span class="q-num">23.</span><span class="q-text">（本题 10 分）已知点 A、B 在数轴上分别表示有理数 a、b，A、B 两点之间的距离可表示为 |AB| = |a − b|。</span><span class="tag">有理数 · 绝对值与数轴距离</span></div>
+    <div class="sub-q">
+      <p>（1）数轴上表示 2 和 5 的两点之间的距离是 <span class="blank-inline">______</span>，表示 −3 和 1 的两点之间的距离是 <span class="blank-inline">______</span>；</p>
+      <p>（2）若 |x − 2| = 3，则 x = <span class="blank-inline">______</span>；</p>
+      <p>（3）若 |a + 2| + |b − 4| = 0，求 |AB| 的值；</p>
+      <p>（4）设点 P 表示数 x，求 |x + 1| + |x − 3| 的最小值，并说明此时 x 的取值范围。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>|2 − 5| = 3；|−3 − 1| = 4。即 3，4。</p>
+      <p><span class="k">（2）</span>|x − 2| = 3 表示点 x 到点 2 的距离为 3，故 x − 2 = 3 或 x − 2 = −3，得 <b>x = 5 或 x = −1</b>。</p>
+      <p><span class="k">（3）</span>因为绝对值均非负，两个非负数之和为 0 时两者都为 0，<br>
+      所以 a + 2 = 0 且 b − 4 = 0，得 a = −2，b = 4。<br>
+      故 |AB| = |a − b| = |−2 − 4| = <b>6</b>。</p>
+      <p><span class="k">（4）</span>|x + 1| + |x − 3| = |x − (−1)| + |x − 3|，它表示点 x 到点 −1 与点 3 的距离之和。<br>
+      数形结合可知：当点 x 在 −1 与 3 之间（含端点）时，距离之和最小，且等于点 −1 到点 3 的距离，<br>
+      最小值 = 3 − (−1) = <b>4</b>，此时 <b>−1 ≤ x ≤ 3</b>。</p>
+      <p class="rubric"><b>评分：</b>（1）2 分；（2）2 分（漏一解给 1 分）；（3）3 分；（4）3 分（最小值 2 分，取值范围 1 分）。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="10" data-max="10"> / 10 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="10">
+    <div class="q-head"><span class="q-num">24.</span><span class="q-text">（本题 10 分）某市居民生活用水实行阶梯水价：每户每月用水量不超过 20 吨的部分，每吨 3 元；超过 20 吨的部分，每吨 5 元。</span><span class="tag">一元一次方程 · 分段计费</span></div>
+    <div class="sub-q">
+      <p>（1）小明家 5 月用水 18 吨，应缴水费多少元？</p>
+      <p>（2）小明家 6 月缴水费 90 元，求 6 月的用水量；</p>
+      <p>（3）小明家 7 月、8 月共用水 40 吨，共缴水费 132 元，且 8 月用水量多于 7 月。求 7 月、8 月各用水多少吨。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>18 &lt; 20，故水费 = 18×3 = <b>54</b>（元）。</p>
+      <p><span class="k">（2）</span>用水 20 吨时需缴 20×3 = 60 元，因为 90 &gt; 60，所以 6 月用水超过 20 吨。<br>
+      设 6 月用水 t 吨，则 60 + 5(t − 20) = 90，<br>
+      解得 5(t − 20) = 30，t − 20 = 6，t = <b>26</b>。<br>
+      答：6 月用水 26 吨。</p>
+      <p><span class="k">（3）</span>因为 8 月用水量多于 7 月，且两月共 40 吨，所以 7 月用水少于 20 吨、8 月用水多于 20 吨。<br>
+      设 7 月用水 a 吨，则 8 月用水 (40 − a) 吨，其中 a &lt; 20。<br>
+      依题意得：3a + 60 + 5[(40 − a) − 20] = 132，<br>
+      化简得 3a + 60 + 100 − 5a = 132，即 160 − 2a = 132，<br>
+      解得 a = <b>14</b>，则 40 − a = <b>26</b>。<br>
+      <b>答：7 月用水 14 吨，8 月用水 26 吨。</b></p>
+      <p><span class="k">检验：</span>14×3 = 42（元），60 + 5×6 = 90（元），42 + 90 = 132（元）；14 + 26 = 40（吨），26 &gt; 14，符合题意。</p>
+      <p class="rubric"><b>评分：</b>（1）3 分；（2）3 分（判断"超过 20 吨"1 分，方程 1 分，结果 1 分）；（3）4 分（设元列方程 2 分，求解 1 分，答 1 分）。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="10" data-max="10"> / 10 分</div>
+  </div>
+
+  <div class="foot">
+    <span>本卷共 24 小题 · 选择题 30 分 + 填空题 24 分 + 解答题 66 分</span>
+    <span id="sum-check">分值核对：30 + 24 + 66 = <b>120</b> ✔</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $$ = function(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); };
+  var body = document.body;
+  var instant = document.getElementById('instant');
+
+  /* ---------- 答案归一化：容错全角/空格/顺序/单位 ---------- */
+  function norm(s){
+    return String(s == null ? '' : s)
+      .replace(/[\s\u3000]/g,'')
+      .replace(/[\uFF01-\uFF5E]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+      .replace(/[＋]/g,'+')
+      .replace(/[－—–−﹣]/g,'-')
+      .replace(/[，、；;]/g,',')
+      .replace(/[’‘＇']/g,'′')
+      .replace(/cm|CM|Cm|厘米/g,'')
+      .replace(/或/g,',')
+      .replace(/和/g,',')
+      .replace(/^\(|\)$/g,'')
+      .toUpperCase();
+  }
+  function keyOf(s){
+    var n = norm(s);
+    if(!n) return '';
+    return n.split(',').filter(Boolean)
+      .map(function(p){ return p.replace(/^\+/,''); })   // 去掉正号，+4 与 4 视为同一个数
+      .sort().join(',');
+  }
+  function blankOk(input){
+    var k = keyOf(input.value);
+    if(!k) return false;
+    return (input.dataset.answers || '').split('|').some(function(a){ return keyOf(a) === k; });
+  }
+
+  /* ---------- 选择题 ---------- */
+  $$('.q[data-type="choice"]').forEach(function(q){
+    $$('.opt', q).forEach(function(opt){
+      opt.addEventListener('click', function(){
+        // 允许改选：清掉旧的判定痕迹后重新判
+        $$('.opt', q).forEach(function(o){ o.classList.remove('selected'); });
+        opt.classList.add('selected');
+        q.dataset.picked = opt.dataset.opt;
+        q.classList.remove('judged','ok','bad');
+        var fb = q.querySelector('.fb'); if(fb) fb.textContent = '';
+        if(instant.checked) judgeChoice(q);
+        updateScore();
+      });
+    });
+  });
+
+  function judgeChoice(q){
+    var picked = q.dataset.picked || '';
+    var ans = q.dataset.answer;
+    $$('.opt', q).forEach(function(o){
+      o.classList.remove('correct','wrong');
+      if(o.dataset.opt === ans) o.classList.add('correct');
+      if(picked && o.dataset.opt === picked && picked !== ans) o.classList.add('wrong');
+    });
+    q.classList.add('judged');
+    q.classList.toggle('ok', picked === ans);
+    q.classList.toggle('bad', !!picked && picked !== ans);
+    var fb = q.querySelector('.fb');
+    if(fb) fb.textContent = picked ? (picked === ans ? '✔ 正确' : '✘ 错误，正确选项 ' + ans) : '未作答（正确选项 ' + ans + '）';
+    if(picked !== ans) openAns(q);
+  }
+
+  /* ---------- 填空题 ---------- */
+  $$('.q[data-type="blank"] .bi').forEach(function(input){
+    input.addEventListener('focus', function(){ input.select(); });
+    input.addEventListener('blur', function(){
+      if(instant.checked && input.value.trim() !== '') judgeBlank(input.closest('.q'));
+    });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); judgeBlank(input.closest('.q')); updateScore(); }
+    });
+  });
+
+  function judgeBlank(q){
+    var ins = $$('.bi', q);
+    var allOk = true, anyFilled = false;
+    ins.forEach(function(i){
+      if((i.value || '').trim() !== '') anyFilled = true;
+      var ok = blankOk(i);
+      i.classList.remove('ok','bad','judged');
+      i.classList.add(ok ? 'ok' : 'bad');
+      if(!ok){ allOk = false; }
+    });
+    q.classList.toggle('ok', allOk && anyFilled);
+    q.classList.toggle('bad', !allOk);
+    var fb = q.querySelector('.fb');
+    if(fb) fb.textContent = allOk && anyFilled ? '✔' : (anyFilled ? '✘ 见解析' : '');
+    if(!allOk) openAns(q);
+  }
+
+  /* ---------- 答案解析展开 ---------- */
+  function openAns(q){
+    var p = q.querySelector('.ans'), b = q.querySelector('.ans-toggle');
+    if(p) p.classList.add('show');
+    if(b) b.classList.add('on');
+  }
+  $$('.q').forEach(function(q){
+    var btn = q.querySelector('.ans-toggle');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      var p = q.querySelector('.ans');
+      var on = p.classList.toggle('show');
+      btn.classList.toggle('on', on);
+    });
+  });
+
+  /* ---------- 判分 / 计分 ---------- */
+  function updateScore(){
+    var obj = 0, objMax = 0;
+    $$('.q[data-type="choice"]').forEach(function(q){
+      var s = parseFloat(q.dataset.score) || 0; objMax += s;
+      if(q.dataset.picked && q.dataset.picked === q.dataset.answer) obj += s;
+    });
+    $$('.q[data-type="blank"]').forEach(function(q){
+      var s = parseFloat(q.dataset.score) || 0; objMax += s;
+      var ins = $$('.bi', q); if(!ins.length) return;
+      var per = s / ins.length, got = 0;
+      ins.forEach(function(i){ if(blankOk(i)) got += per; });
+      obj += got;
+    });
+    var self = 0;
+    $$('.selfscore').forEach(function(inp){
+      var v = parseFloat(inp.value); if(!isFinite(v) || v < 0) v = 0;
+      var mx = parseFloat(inp.dataset.max) || 0;
+      if(v > mx) v = mx;
+      self += v;
+    });
+    var totalMax = objMax + 66;
+    document.getElementById('obj-score').textContent = fmt(obj);
+    document.getElementById('self-score').textContent = fmt(self);
+    document.getElementById('total-score').textContent = fmt(obj + self);
+    var sc = document.getElementById('sum-check');
+    if(sc) sc.innerHTML = '分值核对：30 + 24 + 66 = <b>' + totalMax + '</b> ✔';
+  }
+  function fmt(n){ return (Math.round(n * 10) / 10).toString(); }
+
+  document.getElementById('btn-judge').addEventListener('click', function(){
+    $$('.q[data-type="choice"]').forEach(judgeChoice);
+    $$('.q[data-type="blank"]').forEach(judgeBlank);
+    updateScore();
+  });
+
+  /* ---------- 答案显隐 ---------- */
+  var btnAns = document.getElementById('btn-ans');
+  function setAllAns(show){
+    body.classList.toggle('show-ans', show);
+    $$('.ans').forEach(function(p){ p.classList.toggle('show', show); });
+    $$('.ans-toggle').forEach(function(b){ b.classList.toggle('on', show); });
+    btnAns.textContent = show ? '隐藏答案' : '显示答案';
+    btnAns.classList.toggle('on', show);
+  }
+  btnAns.addEventListener('click', function(){
+    setAllAns(!body.classList.contains('show-ans'));
+  });
+
+  /* ---------- 重置 ---------- */
+  document.getElementById('btn-reset').addEventListener('click', function(){
+    if(!confirm('确定清空所有作答与评分？')) return;
+    $$('.q[data-type="choice"]').forEach(function(q){
+      delete q.dataset.picked;
+      q.classList.remove('judged','ok','bad');
+      $$('.opt', q).forEach(function(o){ o.classList.remove('selected','correct','wrong'); });
+      var fb = q.querySelector('.fb'); if(fb) fb.textContent = '';
+    });
+    $$('.bi').forEach(function(i){ i.value = ''; i.classList.remove('ok','bad','judged'); i.removeAttribute('title'); });
+    $$('.selfscore').forEach(function(i){ i.value = ''; });
+    $$('.q[data-type="blank"]').forEach(function(q){
+      q.classList.remove('ok','bad');
+      var fb = q.querySelector('.fb'); if(fb) fb.textContent = '';
+    });
+    setAllAns(false);
+    updateScore();
+  });
+
+  /* ---------- 自评联动 ---------- */
+  $$('.selfscore').forEach(function(inp){
+    inp.addEventListener('input', updateScore);
+    inp.addEventListener('change', updateScore);
+  });
+
+  /* ---------- 打印 ---------- */
+  function printWithAnswers(show){
+    body.classList.toggle('show-ans', show);
+    $$('.ans').forEach(function(p){ p.classList.toggle('show', show); });
+    $$('.ans-toggle').forEach(function(b){ b.classList.toggle('on', show); });
+    btnAns.textContent = show ? '隐藏答案' : '显示答案';
+    btnAns.classList.toggle('on', show);
+    setTimeout(function(){ window.print(); }, 60);
+  }
+  document.getElementById('btn-print-q').addEventListener('click', function(){ printWithAnswers(false); });
+  document.getElementById('btn-print-a').addEventListener('click', function(){ printWithAnswers(true); });
+
+  updateScore();
+})();
+</script>
+</body>
+</html>
