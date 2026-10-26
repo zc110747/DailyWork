@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>七年级（下）数学期末模拟卷（二） · 浙教版</title>
+<style>
+:root{
+  --ink:#1b2430;
+  --navy:#1e3a5f;
+  --line:#c9d2dd;
+  --soft:#f4f7fb;
+  --green:#1f7a4d;
+  --green-bg:#eaf6ef;
+  --red:#b0302a;
+  --red-bg:#fdeeee;
+  --amber:#8a6d1f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{
+  background:#eaeef3;
+  font-family:"Times New Roman","Songti SC","SimSun",serif;
+  color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 10px 60px;
+  font-size:16px;line-height:1.62;
+}
+
+/* ============ 工具栏 ============ */
+.toolbar{
+  position:sticky;top:0;z-index:50;
+  width:100%;max-width:920px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:9px 14px;margin:10px 0 14px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line);border-radius:8px;
+  box-shadow:0 2px 10px rgba(20,40,70,.07);
+  font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+  font-size:13px;
+}
+.tb-title{font-weight:700;color:var(--navy);letter-spacing:.4px}
+.tb-title span{font-weight:400;color:#6b7a8c;margin-left:6px;font-size:12px}
+.tb-actions{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-left:auto}
+button{
+  font-family:inherit;font-size:13px;cursor:pointer;
+  padding:5px 11px;border-radius:6px;
+  border:1px solid var(--line);background:#fff;color:var(--navy);
+  transition:.15s;
+}
+button:hover{background:var(--soft);border-color:#9db0c7}
+button.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+button.primary:hover{background:#2a4f7d}
+button.on{background:#e8f1fb;border-color:var(--navy);font-weight:700}
+.switch{display:flex;align-items:center;gap:5px;color:#4a5a6d;cursor:pointer;user-select:none}
+.switch input{width:15px;height:15px;accent-color:var(--navy);cursor:pointer}
+.score-chip{
+  padding:4px 10px;border-radius:20px;background:var(--soft);
+  border:1px solid var(--line);color:#3b4a5b;white-space:nowrap;
+}
+.score-chip b{color:var(--navy);font-size:14px}
+
+/* ============ 试卷 ============ */
+.paper{
+  width:100%;max-width:920px;background:#fff;
+  box-shadow:0 4px 18px rgba(20,40,70,.1);
+  padding:38px 46px 46px;border-radius:8px;
+}
+h1{text-align:center;font-size:25px;font-weight:700;letter-spacing:1.5px;color:var(--navy)}
+.subhead{text-align:center;font-size:13.5px;color:#5a6b7d;padding:3px 0 10px;border-bottom:2px solid var(--navy);margin-bottom:10px}
+.info-line{display:flex;justify-content:space-around;font-size:14px;margin:10px 0 4px;color:var(--navy)}
+.tips{
+  font-size:13px;color:#4d5c6d;background:var(--soft);
+  border-left:3px solid var(--navy);border-radius:4px;
+  padding:7px 12px;margin:12px 0 4px;font-family:"Microsoft YaHei",sans-serif;
+}
+.section-title{
+  font-size:17.5px;font-weight:700;margin:26px 0 6px;padding-left:9px;
+  border-left:5px solid var(--navy);color:#16222e;letter-spacing:.3px;
+}
+
+/* ============ 题目通用 ============ */
+.q{margin:13px 0 9px;position:relative}
+.q-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px}
+.q-num{font-weight:700;margin-right:3px;color:var(--navy)}
+.q-text{flex:1 1 320px}
+.tag{
+  display:none;font-family:"Microsoft YaHei",sans-serif;font-size:11px;
+  color:#7a8798;border:1px solid #dbe2ea;border-radius:3px;
+  padding:0 5px;white-space:nowrap;
+}
+body.show-ans .tag{display:inline-block}
+
+/* 选项 */
+.opts.two{grid-template-columns:1fr 1fr}
+        .opts{display:grid;grid-template-columns:repeat(4,1fr);gap:5px 10px;margin:5px 0 0 22px}
+.opt{
+  cursor:pointer;padding:2px 8px;border-radius:5px;
+  border:1px solid transparent;transition:.13s;user-select:none;
+}
+.opt b{font-weight:700;color:var(--navy);margin-right:3px}
+.opt:hover{background:#f2f6fb;border-color:#cfdbe8}
+.opt.selected{background:#eaf1f9;border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.opt.correct{background:var(--green-bg);border-color:var(--green);color:#14563a}
+.opt.correct b{color:var(--green)}
+.opt.wrong{background:var(--red-bg);border-color:var(--red);color:#7d211d;text-decoration:line-through}
+.opt.wrong b{color:var(--red)}
+.opt.correct::after{content:" ✔";color:var(--green);font-weight:700}
+.opt.wrong::after{content:" ✘";color:var(--red);font-weight:700}
+
+/* 填空 */
+.fill-grid{display:grid;grid-template-columns:1fr;gap:9px 26px;margin:8px 0 4px 22px}
+.bi{
+  font-family:inherit;font-size:15px;color:var(--navy);
+  border:none;border-bottom:1px solid #445;background:transparent;
+  width:96px;text-align:center;padding:1px 2px;outline:none;
+}
+.bi:focus{background:#f0f5fb;border-bottom-color:var(--navy)}
+.bi.ok{color:var(--green);border-bottom-color:var(--green);background:var(--green-bg)}
+.bi.bad{color:var(--red);border-bottom-color:var(--red);background:var(--red-bg)}
+.note{font-size:12.5px;color:#6d7a88;font-family:"Microsoft YaHei",sans-serif}
+
+/* 解答题 */
+.sub-q{margin:4px 0 0 22px}
+.sub-q p{margin:5px 0}
+.work-lines{margin:6px 0 2px 22px}
+.work-lines i{display:block;border-bottom:1px dotted #d3dae3;height:27px}
+
+/* 图形 */
+.svg-wrap{margin:10px 0 6px 22px;overflow-x:auto}
+svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px}
+.svg-cap{font-size:12.5px;color:#6d7a88;margin-left:22px;font-family:"Microsoft YaHei",sans-serif}
+
+/* 答案 */
+.ans-toggle{
+  margin:6px 0 0 22px;font-size:12px;padding:2px 9px;
+  color:var(--green);border-color:#bcd9c9;background:#f6fbf8;
+}
+.ans-toggle::before{content:"▸ "}
+.ans-toggle.on{background:var(--green-bg);font-weight:700}
+.ans-toggle.on::before{content:"▾ "}
+.ans{
+  display:none;margin:8px 0 0 22px;padding:10px 14px;
+  background:#f7fbf8;border:1px solid #d7e8dd;border-left:3px solid var(--green);
+  border-radius:5px;font-size:14px;color:#1d3b2c;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.7;
+}
+.ans.show{display:block}
+.ans .k{font-weight:700;color:var(--green);margin-right:4px}
+.ans p{margin:3px 0}
+.ans .rubric{font-size:12.5px;color:#4f6659;border-top:1px dashed #cfe2d6;margin-top:7px;padding-top:6px}
+.ans .rubric b{color:var(--green)}
+.ans .warn{color:var(--amber)}
+.self-row{
+  margin:8px 0 0 22px;font-size:12.5px;color:#5a6b7d;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+.selfscore{
+  width:44px;font-family:inherit;font-size:13px;text-align:center;
+  border:1px solid var(--line);border-radius:4px;padding:1px 2px;color:var(--navy);
+}
+.fb{font-size:12px;font-weight:700;margin-left:6px}
+.q.ok .fb{color:var(--green)}
+.q.bad .fb{color:var(--red)}
+
+/* 数学排版 */
+.frac{display:inline-flex;flex-direction:column;vertical-align:-.42em;text-align:center;font-size:.92em;line-height:1.15;margin:0 3px}
+.frac>span:first-child{border-bottom:1.2px solid currentColor;padding:0 4px 1px}
+.frac>span:last-child{padding:1px 4px 0}
+.sq>.rad{border-top:1.2px solid currentColor;padding:0 2px;margin-left:-1px}
+
+/* 页脚 */
+.foot{
+  margin-top:26px;padding-top:10px;border-top:1px solid var(--line);
+  font-size:12.5px;color:#6d7a88;display:flex;justify-content:space-between;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+
+/* ============ 打印 ============ */
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  body{background:#fff;padding:0;font-size:14.5px;line-height:1.5}
+  .toolbar,.ans-toggle,.self-row,.fb,.tips .no-print{display:none!important}
+  .paper{box-shadow:none;border-radius:0;padding:0;max-width:none}
+  .q{break-inside:avoid;page-break-inside:avoid}
+  .section-title{break-after:avoid;page-break-after:avoid}
+  .svg-wrap{break-inside:avoid}
+  .ans{break-inside:avoid;background:#fbfcfb}
+  svg{background:#fff}
+  .work-lines i{height:26px}
+}
+@media (max-width:680px){
+  body{padding:0 4px 40px}
+  .paper{padding:22px 16px 26px}
+  .opts{grid-template-columns:1fr 1fr}
+  .fill-grid{grid-template-columns:1fr}
+  .info-line{font-size:12.5px}
+  h1{font-size:20px}
+  .tb-title{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="tb-title">七年级（下）数学期末模拟卷<span>浙教版 · 100 分</span></div>
+  <div class="tb-actions">
+    <label class="switch"><input type="checkbox" id="instant" checked><span>即时判分</span></label>
+    <button id="btn-judge" class="primary">判分</button>
+    <button id="btn-ans">显示答案</button>
+    <button id="btn-reset">重置</button>
+    <button id="btn-print-q">打印试卷</button>
+    <button id="btn-print-a">打印含答案</button>
+    <div class="score-chip">客观 <b id="obj-score">0</b>/54 ｜ 自评 <b id="self-score">0</b>/46 ｜ 合计 <b id="total-score">0</b>/100</div>
+  </div>
+</div>
+
+<div class="paper" id="paper">
+  <h1>七年级下学期数学期末模拟卷（二）</h1>
+  <div class="subhead">（浙教版 · 七年级下册）满分 100 分 · 考试时间 90 分钟</div>
+  <div class="info-line">
+    <span>班级：____________</span>
+    <span>姓名：____________</span>
+    <span>学号：____________</span>
+    <span>得分：__________</span>
+  </div>
+
+  <div class="tips">
+    <b>考生须知：</b>1. 全卷共 22 小题，满分 100 分。2. 答案必须写在答题处，写在试题卷上无效。
+    3. 不得使用计算器。4. 解答题应写出必要的文字说明、演算步骤或推理过程。
+  </div>
+
+  <!-- ================= 一、选择题 ================= -->
+  <div class="section-title">一、选择题（本大题有 10 小题，每小题 3 分，共 30 分。每小题只有一个选项是正确的）</div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">1.</span><span class="q-text">下列计算正确的是（　　）</span><span class="tag">整式的乘除 · 幂的运算</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> a<sup>3</sup>·a<sup>2</sup> = a<sup>6</sup></div>
+      <div class="opt" data-opt="B"><b>B.</b> (a<sup>3</sup>)<sup>2</sup> = a<sup>5</sup></div>
+      <div class="opt" data-opt="C"><b>C.</b> a<sup>6</sup> ÷ a<sup>2</sup> = a<sup>4</sup></div>
+      <div class="opt" data-opt="D"><b>D.</b> (−2a)<sup>2</sup> = −4a<sup>2</sup></div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>A 应为 a<sup>5</sup>；B 应为 a<sup>6</sup>；D 中 (−2a)<sup>2</sup> = 4a<sup>2</sup>，负号也要平方。C 正确。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="B">
+    <div class="q-head"><span class="q-num">2.</span><span class="q-text">若分式 <span class="frac"><span>1</span><span>x − 2</span></span> 有意义，则 x 的取值范围是（　　）</span><span class="tag">分式 · 有意义的条件</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> x = 2</div>
+      <div class="opt" data-opt="B"><b>B.</b> x ≠ 2</div>
+      <div class="opt" data-opt="C"><b>C.</b> x &gt; 2</div>
+      <div class="opt" data-opt="D"><b>D.</b> x &lt; 2</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>B</p>
+      <p><span class="k">解析：</span>分式有意义的条件是分母不为 0，即 x − 2 ≠ 0，所以 x ≠ 2。</p>
+      <p class="warn">分式与二次根式的条件不同：分式只要求分母 ≠ 0，不涉及大小范围。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="A">
+    <div class="q-head"><span class="q-num">3.</span><span class="q-text">某种病毒的直径约为 0.000 045 米，将 0.000 045 用科学记数法表示为（　　）</span><span class="tag">整式的乘除 · 负指数与科学记数法</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 4.5×10<sup>−5</sup></div>
+      <div class="opt" data-opt="B"><b>B.</b> 0.45×10<sup>−4</sup></div>
+      <div class="opt" data-opt="C"><b>C.</b> 45×10<sup>−6</sup></div>
+      <div class="opt" data-opt="D"><b>D.</b> 4.5×10<sup>−6</sup></div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>A</p>
+      <p><span class="k">解析：</span>0.000 045 = 4.5×10<sup>−5</sup>。</p>
+      <p class="warn">B、C 的数值虽然与 A 相等，但 0.45 与 45 都不满足科学记数法"1 ≤ a &lt; 10"的要求，不是标准形式；D 的数值本身就不对。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="B">
+    <div class="q-head"><span class="q-num">4.</span><span class="q-text">下列因式分解正确的是（　　）</span><span class="tag">因式分解 · 公式法</span></div>
+    <div class="opts two">
+      <div class="opt" data-opt="A"><b>A.</b> x<sup>2</sup> − 4 = (x − 4)(x + 4)</div>
+      <div class="opt" data-opt="B"><b>B.</b> x<sup>2</sup> + 4x + 4 = (x + 2)<sup>2</sup></div>
+      <div class="opt" data-opt="C"><b>C.</b> x<sup>2</sup> − 2x + 1 = (x − 1)(x + 1)</div>
+      <div class="opt" data-opt="D"><b>D.</b> 2x<sup>2</sup> − 2 = 2(x − 1)<sup>2</sup></div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>B</p>
+      <p><span class="k">解析：</span>A 应为 (x − 2)(x + 2)；C 应为 (x − 1)<sup>2</sup>；D 中 2(x − 1)<sup>2</sup> = 2x<sup>2</sup> − 4x + 2，与原式不符，正确结果是 2(x + 1)(x − 1)。<br>
+      B：x<sup>2</sup> + 4x + 4 = x<sup>2</sup> + 2·x·2 + 2<sup>2</sup> = (x + 2)<sup>2</sup>，正确。</p>
+      <p class="warn">检验因式分解是否正确的办法：把结果乘开，看能否还原成原式。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">5.</span><span class="q-text">二元一次方程 x + 2y = 7 的正整数解共有（　　）</span><span class="tag">二元一次方程 · 整数解</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 1 组</div>
+      <div class="opt" data-opt="B"><b>B.</b> 2 组</div>
+      <div class="opt" data-opt="C"><b>C.</b> 3 组</div>
+      <div class="opt" data-opt="D"><b>D.</b> 4 组</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>由 x + 2y = 7 得 x = 7 − 2y。要求 x、y 都是正整数，则 y 取 1、2、3：<br>
+      y = 1 得 x = 5；y = 2 得 x = 3；y = 3 得 x = 1。（y ≥ 4 时 x ≤ −1，不合题意）<br>
+      共 3 组：(5, 1)、(3, 2)、(1, 3)。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="D">
+    <div class="q-head"><span class="q-num">6.</span><span class="q-text">若 a − b = 3，ab = 2，则 a<sup>2</sup> + b<sup>2</sup> 的值是（　　）</span><span class="tag">整式的乘除 · 完全平方公式</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 5</div>
+      <div class="opt" data-opt="B"><b>B.</b> 9</div>
+      <div class="opt" data-opt="C"><b>C.</b> 11</div>
+      <div class="opt" data-opt="D"><b>D.</b> 13</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>D</p>
+      <p><span class="k">解析：</span>a<sup>2</sup> + b<sup>2</sup> = (a − b)<sup>2</sup> + 2ab = 3<sup>2</sup> + 2×2 = 9 + 4 = 13。</p>
+      <p class="warn">用哪个公式取决于已知的是"和"还是"差"：已知 a − b 时用 (a − b)<sup>2</sup> + 2ab。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="B">
+    <div class="q-head"><span class="q-num">7.</span><span class="q-text">分式方程 <span class="frac"><span>1</span><span>x − 2</span></span> = <span class="frac"><span>2</span><span>x</span></span> 的解是（　　）</span><span class="tag">分式方程 · 解法</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 2</div>
+      <div class="opt" data-opt="B"><b>B.</b> 4</div>
+      <div class="opt" data-opt="C"><b>C.</b> −4</div>
+      <div class="opt" data-opt="D"><b>D.</b> 无解</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>B</p>
+      <p><span class="k">解析：</span>两边同乘 x(x − 2)，得 x = 2(x − 2)，即 x = 2x − 4，解得 x = 4。<br>
+      检验：x = 4 时，x(x − 2) = 8 ≠ 0，所以 x = 4 是原方程的解。</p>
+      <p class="warn">A 的陷阱：x = 2 使分母为 0，是增根，不是解。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">8.</span><span class="q-text">如图，把 △ABC 沿 BC 方向平移 3 cm 得到 △DEF。若 △ABC 的周长为 12 cm，则四边形 ABFD 的周长为（　　）</span><span class="tag">平行线 · 图形的平移</span></div>
+    <div class="svg-wrap">
+      <svg width="450" height="150" viewBox="0 0 450 150" role="img" aria-label="第8题图">
+        <polygon points="60,110 200,110 130,30" fill="#eef3fa" stroke="#1e3a5f" stroke-width="1.7"/>
+        <polygon points="150,110 290,110 220,30" fill="none" stroke="#1e3a5f" stroke-width="1.7" stroke-dasharray="5,3"/>
+        <circle cx="60" cy="110" r="2.6" fill="#1e3a5f"/>
+        <circle cx="200" cy="110" r="2.6" fill="#1e3a5f"/>
+        <circle cx="130" cy="30" r="2.6" fill="#1e3a5f"/>
+        <text x="52" y="126" font-size="14" fill="#1e3a5f">B</text>
+        <text x="202" y="126" font-size="14" fill="#1e3a5f">C</text>
+        <text x="124" y="24" font-size="14" fill="#1e3a5f">A</text>
+        <text x="142" y="126" font-size="14" fill="#1e3a5f">E</text>
+        <text x="292" y="126" font-size="14" fill="#1e3a5f">F</text>
+        <text x="214" y="24" font-size="14" fill="#1e3a5f">D</text>
+        <line x1="200" y1="140" x2="290" y2="140" stroke="#b0302a" stroke-width="1.2" marker-end="url(#pf)"/>
+        <text x="235" y="137" font-size="11.5" fill="#b0302a" text-anchor="middle">3 cm</text>
+        <defs><marker id="pf" markerWidth="8" markerHeight="6" refX="7.5" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#b0302a"/></marker></defs>
+      </svg>
+    </div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 12 cm</div>
+      <div class="opt" data-opt="B"><b>B.</b> 15 cm</div>
+      <div class="opt" data-opt="C"><b>C.</b> 18 cm</div>
+      <div class="opt" data-opt="D"><b>D.</b> 21 cm</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>平移前后对应线段相等，且各点沿 BC 方向移动了 3 cm：<br>
+      AD = 3 cm，CF = 3 cm，DF = AC，BF = BC + CF = BC + 3。<br>
+      四边形 ABFD 的周长 = AB + BF + FD + DA<br>
+      = AB + (BC + 3) + AC + 3<br>
+      = (AB + BC + AC) + 6<br>
+      = 12 + 6 = <b>18</b>（cm）。</p>
+      <p class="warn">关键在于把"周长 12"整体代入，不必求出每条边的长。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="A">
+    <div class="q-head"><span class="q-num">9.</span><span class="q-text">若 (x + 3)(x − 2) = x<sup>2</sup> + mx + n，则 m + n 的值是（　　）</span><span class="tag">整式的乘除 · 多项式乘法</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> −5</div>
+      <div class="opt" data-opt="B"><b>B.</b> −1</div>
+      <div class="opt" data-opt="C"><b>C.</b> 1</div>
+      <div class="opt" data-opt="D"><b>D.</b> 7</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>A</p>
+      <p><span class="k">解析：</span>(x + 3)(x − 2) = x<sup>2</sup> + 3x − 2x − 6 = x<sup>2</sup> + x − 6。<br>
+      比较系数得 m = 1，n = −6，所以 m + n = −5。</p>
+      <p class="warn">n 是常数项，不要漏掉负号写成 6，否则会得到 −1。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="choice" data-score="3" data-answer="C">
+    <div class="q-head"><span class="q-num">10.</span><span class="q-text">若 x<sup>2</sup> + 2(m − 1)x + 16 是一个完全平方式，则 m 的值是（　　）</span><span class="tag">整式的乘除 · 完全平方式</span></div>
+    <div class="opts">
+      <div class="opt" data-opt="A"><b>A.</b> 5</div>
+      <div class="opt" data-opt="B"><b>B.</b> −3</div>
+      <div class="opt" data-opt="C"><b>C.</b> 5 或 −3</div>
+      <div class="opt" data-opt="D"><b>D.</b> 3 或 −5</div>
+    </div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>C</p>
+      <p><span class="k">解析：</span>x<sup>2</sup> + 2(m − 1)x + 16 = x<sup>2</sup> + 2(m − 1)x + 4<sup>2</sup>，<br>
+      完全平方式为 (x ± 4)<sup>2</sup> = x<sup>2</sup> ± 8x + 16，<br>
+      所以 2(m − 1) = 8 或 2(m − 1) = −8，<br>
+      即 m − 1 = 4 或 m − 1 = −4，得 m = 5 或 m = −3。</p>
+      <p class="warn">只写一个值不给分——中间项可正可负，"±"必须讨论。</p>
+    </div>
+  </div>
+
+  <!-- ================= 二、填空题 ================= -->
+  <div class="section-title">二、填空题（本大题有 6 小题，每小题 4 分，共 24 分）</div>
+
+  <div class="fill-grid">
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">11.</span><span class="q-text">计算：(−3)<sup>0</sup> + (<span class="frac"><span>1</span><span>2</span></span>)<sup>−1</sup> = <input class="bi" data-answers="3" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <div class="ans">
+        <p><span class="k">答案：</span>3</p>
+        <p><span class="k">解析：</span>(−3)<sup>0</sup> = 1；(½)<sup>−1</sup> = 2。<br>
+        所以原式 = 1 + 2 = 3。</p>
+        <p class="warn">(−3)<sup>0</sup> 等于 1，不是 −1；零次幂的结果与底数的符号无关（只要底数不为 0）。</p>
+      </div>
+    </div>
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">12.</span><span class="q-text">若 x + y = 4，xy = 1，则 (x − y)<sup>2</sup> = <input class="bi" data-answers="12" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <div class="ans">
+        <p><span class="k">答案：</span>12</p>
+        <p><span class="k">解析：</span>(x − y)<sup>2</sup> = (x + y)<sup>2</sup> − 4xy = 4<sup>2</sup> − 4×1 = 16 − 4 = 12。</p>
+      </div>
+    </div>
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">13.</span><span class="q-text">若 |a − 2| + (b + 1)<sup>2</sup> = 0，且 (a, b) 是方程 mx − 2y = 4 的一个解，则 m = <input class="bi" data-answers="1" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <button class="ans-toggle">答案</button>
+      <div class="ans">
+        <p><span class="k">答案：</span>1</p>
+        <p><span class="k">解析：</span>绝对值与平方都是非负数，两个非负数之和为 0，则两者都为 0：<br>
+        a − 2 = 0，b + 1 = 0，得 a = 2，b = −1。<br>
+        把 (2, −1) 代入 mx − 2y = 4，得 2m − 2×(−1) = 4，即 2m + 2 = 4，<br>
+        解得 m = 1。</p>
+      </div>
+    </div>
+    <div class="q" data-type="blank" data-score="4">
+      <div class="q-head"><span class="q-num">14.</span><span class="q-text">若一个角的两边与另一个角的两边分别平行，且其中一个角是 50°，则另一个角的度数是 <input class="bi" data-answers="50或130|130或50|50,130|130,50|50°或130°|50度和130度" autocomplete="off">。</span></div>
+      <span class="fb"></span>
+      <button class="ans-toggle">答案</button>
+      <div class="ans">
+        <p><span class="k">答案：</span>50° 或 130°</p>
+        <p><span class="k">解析：</span>两边分别平行的两个角，相等或互补：<br>
+        ① 若两个角的两边方向相同（或都相反），则两角相等，为 50°；<br>
+        ② 若一组对边方向相同、另一组方向相反，则两角互补，为 180° − 50° = 130°。</p>
+        <p class="warn">只填 50° 是漏解，这是本章最典型的分类讨论题。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="q" data-type="blank" data-score="4">
+    <div class="q-head"><span class="q-num">15.</span><span class="q-text">已知 a<sup>2</sup> − 3a + 1 = 0，则 a + <span class="frac"><span>1</span><span>a</span></span> = <input class="bi" data-answers="3" autocomplete="off">。</span></div>
+    <span class="fb"></span>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">答案：</span>3</p>
+      <p><span class="k">解析：</span>由 a<sup>2</sup> − 3a + 1 = 0 知 a ≠ 0（若 a = 0，则 1 = 0，矛盾），<br>
+      方程两边同除以 a，得 a − 3 + <span class="frac"><span>1</span><span>a</span></span> = 0，<br>
+      所以 a + <span class="frac"><span>1</span><span>a</span></span> = 3。</p>
+        <p class="warn">"两边同除以 a"之前必须先说明 a ≠ 0，这一步是本题的得分点。</p>
+    </div>
+  </div>
+
+  <div class="q" data-type="blank" data-score="4">
+    <div class="q-head"><span class="q-num">16.</span><span class="q-text">在扇形统计图中，某一部分占总体的 25%。若总体数量为 240，则该部分的频数是 <input class="bi" data-answers="60" autocomplete="off">。</span></div>
+    <span class="fb"></span>
+    <div class="ans">
+      <p><span class="k">答案：</span>60</p>
+      <p><span class="k">解析：</span>频数 = 总数 × 频率 = 240 × 25% = 60。</p>
+    </div>
+  </div>
+
+  <!-- ================= 三、解答题 ================= -->
+  <div class="section-title">三、解答题（本大题有 6 小题，共 46 分。解答需写出必要的文字说明、演算步骤或推理过程）</div>
+
+  <div class="q" data-type="essay" data-score="6">
+    <div class="q-head"><span class="q-num">17.</span><span class="q-text">（本题 6 分）计算：</span><span class="tag">整式的乘除 · 混合运算</span></div>
+    <div class="sub-q">
+      <p>（1）3a(2a − b) − 6a<sup>2</sup>；</p>
+      <p>（2）(2x − 1)<sup>2</sup> − (x + 2)(x − 2)。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>原式 = 6a<sup>2</sup> − 3ab − 6a<sup>2</sup> = <b>−3ab</b></p>
+      <p><span class="k">（2）</span>原式 = (4x<sup>2</sup> − 4x + 1) − (x<sup>2</sup> − 4)<br>
+      = 4x<sup>2</sup> − 4x + 1 − x<sup>2</sup> + 4<br>
+      = <b>3x<sup>2</sup> − 4x + 5</b></p>
+      <p class="rubric"><b>评分：</b>每小题 3 分。第 (2) 题两个公式各 1 分，合并 1 分；去括号时 −(x<sup>2</sup> − 4) 要变成 −x<sup>2</sup> + 4，符号错不得分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="6">
+    <div class="q-head"><span class="q-num">18.</span><span class="q-text">（本题 6 分）解方程组：<span style="white-space:nowrap">{ 2x + y = 5，3x − 2y = 4 }</span></span><span class="tag">二元一次方程组 · 加减消元</span></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">解：</span>由 2x + y = 5 得 y = 5 − 2x。　①</p>
+      <p>把 ① 代入 3x − 2y = 4，得 3x − 2(5 − 2x) = 4，<br>
+      即 3x − 10 + 4x = 4，7x = 14，x = 2。</p>
+      <p>把 x = 2 代入 ①，得 y = 5 − 2×2 = 1。</p>
+      <p>所以方程组的解为 <b>x = 2，y = 1</b>。（检验：2×2 + 1 = 5 ✓，3×2 − 2×1 = 4 ✓）</p>
+      <p class="rubric"><b>评分：</b>消元 3 分，求出一个未知数 2 分，结果 1 分。用加减消元法（①×2 后相加）同样给分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="6">
+    <div class="q-head"><span class="q-num">19.</span><span class="q-text">（本题 6 分）因式分解：</span><span class="tag">因式分解 · 提公因式与公式法</span></div>
+    <div class="sub-q">
+      <p>（1）2x<sup>2</sup> − 8y<sup>2</sup>；</p>
+      <p>（2）3ax<sup>2</sup> − 6axy + 3ay<sup>2</sup>。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>原式 = 2(x<sup>2</sup> − 4y<sup>2</sup>) = <b>2(x + 2y)(x − 2y)</b></p>
+      <p><span class="k">（2）</span>原式 = 3a(x<sup>2</sup> − 2xy + y<sup>2</sup>) = <b>3a(x − y)<sup>2</sup></b></p>
+      <p class="warn">分解顺序：先提公因式，再看能否用公式。第 (1) 题若不先提 2，直接写成 (√2x…)<sup>2</sup> 就错了。</p>
+      <p class="rubric"><b>评分：</b>每小题 3 分（提公因式 1 分，用公式 1 分，结果 1 分）。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="8">
+    <div class="q-head"><span class="q-num">20.</span><span class="q-text">（本题 8 分）先化简，再求值：(1 + <span class="frac"><span>1</span><span>x − 1</span></span>) ÷ <span class="frac"><span>x</span><span>x<sup>2</sup> − 1</span></span>，其中 x = 3。</span><span class="tag">分式 · 化简求值</span></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">解：</span>原式 = <span class="frac"><span>x − 1 + 1</span><span>x − 1</span></span> ÷ <span class="frac"><span>x</span><span>(x + 1)(x − 1)</span></span><br>
+      = <span class="frac"><span>x</span><span>x − 1</span></span> × <span class="frac"><span>(x + 1)(x − 1)</span><span>x</span></span><br>
+      = <b>x + 1</b>。</p>
+      <p>当 x = 3 时，原式 = 3 + 1 = <b>4</b>。</p>
+      <p class="rubric"><b>评分：</b>括号内通分 2 分，除法转乘法并因式分解 3 分，化简结果 1 分，代入求值 2 分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="10">
+    <div class="q-head"><span class="q-num">21.</span><span class="q-text">（本题 10 分）某工程队承接一段道路的施工任务。若甲队单独施工，需 20 天完成；若乙队单独施工，需 30 天完成。现两队合做 6 天后，剩下的工程由乙队单独完成。</span><span class="tag">分式 · 工程问题</span></div>
+    <div class="sub-q">
+      <p>（1）乙队还需要多少天才能完成剩下的工程？</p>
+      <p>（2）已知甲队每天的施工费用为 0.8 万元，乙队每天的施工费用为 0.5 万元，求完成该工程的总费用。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>把总工程量看作 1，甲队每天完成 <span class="frac"><span>1</span><span>20</span></span>，乙队每天完成 <span class="frac"><span>1</span><span>30</span></span>。</p>
+      <p>设乙队还需 x 天完成剩下的工程。<br>
+      依题意得：6×<span class="frac"><span>1</span><span>20</span></span> + 6×<span class="frac"><span>1</span><span>30</span></span> + <span class="frac"><span>x</span><span>30</span></span> = 1。<br>
+      化简得 <span class="frac"><span>3</span><span>10</span></span> + <span class="frac"><span>1</span><span>5</span></span> + <span class="frac"><span>x</span><span>30</span></span> = 1，即 <span class="frac"><span>1</span><span>2</span></span> + <span class="frac"><span>x</span><span>30</span></span> = 1，<br>
+      所以 <span class="frac"><span>x</span><span>30</span></span> = <span class="frac"><span>1</span><span>2</span></span>，解得 <b>x = 15</b>。</p>
+      <p><b>答：乙队还需要 15 天完成剩下的工程。</b></p>
+      <p><span class="k">（2）</span>甲队共做 6 天，乙队共做 6 + 15 = 21 天。<br>
+      总费用 = 0.8×6 + 0.5×21 = 4.8 + 10.5 = <b>15.3</b>（万元）。</p>
+      <p><b>答：完成该工程的总费用为 15.3 万元。</b></p>
+      <p class="rubric"><b>评分：</b>(1) 6 分（设元并写出两队的日工作量 2 分，列方程 2 分，求解 1 分，答 1 分）；(2) 4 分（乙队总天数 2 分，合计 2 分）。<b>乙队的天数应为 6 + 15 = 21 天，写成 15 天扣 2 分。</b></p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="10" data-max="10"> / 10 分</div>
+  </div>
+
+  <div class="q" data-type="essay" data-score="10">
+    <div class="q-head"><span class="q-num">22.</span><span class="q-text">（本题 10 分）如图，AB∥CD，点 P 是直线 AB 与 CD 之间的一点，∠BAP 与 ∠DCP 的平分线交于点 Q。</span><span class="tag">平行线 · 拐点与角平分线探究</span></div>
+    <div class="svg-wrap">
+      <svg width="470" height="205" viewBox="0 0 470 205" role="img" aria-label="第22题图">
+        <line x1="90" y1="40" x2="395" y2="40" stroke="#1e3a5f" stroke-width="2"/>
+        <line x1="90" y1="170" x2="395" y2="170" stroke="#1e3a5f" stroke-width="2"/>
+        <line x1="90" y1="40" x2="180" y2="105" stroke="#1e3a5f" stroke-width="1.7"/>
+        <line x1="90" y1="170" x2="180" y2="105" stroke="#1e3a5f" stroke-width="1.7"/>
+        <line x1="90" y1="40" x2="291" y2="105" stroke="#b0302a" stroke-width="1.4" stroke-dasharray="5,3"/>
+        <line x1="90" y1="170" x2="291" y2="105" stroke="#b0302a" stroke-width="1.4" stroke-dasharray="5,3"/>
+        <circle cx="180" cy="105" r="2.8" fill="#1e3a5f"/>
+        <circle cx="291" cy="105" r="2.8" fill="#b0302a"/>
+        <text x="82" y="33" font-size="14" fill="#1e3a5f">A</text>
+        <text x="399" y="45" font-size="14" fill="#1e3a5f">B</text>
+        <text x="82" y="183" font-size="14" fill="#1e3a5f">C</text>
+        <text x="399" y="175" font-size="14" fill="#1e3a5f">D</text>
+        <text x="167" y="98" font-size="14" fill="#1e3a5f">P</text>
+        <text x="295" y="98" font-size="14" fill="#b0302a">Q</text>
+      </svg>
+    </div>
+    <div class="sub-q">
+      <p>（1）若 ∠APC = 80°，求 ∠AQC 的度数；</p>
+      <p>（2）探究 ∠AQC 与 ∠APC 之间的数量关系，并说明理由；</p>
+      <p>（3）若 ∠AQC = 35°，求 ∠APC 的度数。</p>
+    </div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="ans-toggle">答案</button>
+    <div class="ans">
+      <p><span class="k">（1）</span>过点 P 作 PM∥AB，则 PM∥CD。<br>
+      因为 PM∥AB，所以 ∠APM = ∠BAP；<br>
+      因为 PM∥CD，所以 ∠CPM = ∠DCP。<br>
+      所以 ∠APC = ∠BAP + ∠DCP = 80°。<br>
+      同理，过点 Q 作 QN∥AB，可得 ∠AQC = ½∠BAP + ½∠DCP = ½(∠BAP + ∠DCP)。<br>
+      所以 ∠AQC = ½×80° = <b>40°</b>。</p>
+      <p><span class="k">（2）</span>数量关系：<b>∠AQC = ½∠APC</b>。<br>
+      理由：由（1）知 ∠APC = ∠BAP + ∠DCP。<br>
+      因为 AQ 平分 ∠BAP，CQ 平分 ∠DCP，<br>
+      所以 ∠QAP = ½∠BAP，∠QCP = ½∠DCP。<br>
+      过 Q 作 QN∥AB，同理可得<br>
+      ∠AQC = ∠QAP + ∠QCP = ½(∠BAP + ∠DCP) = ½∠APC。</p>
+      <p><span class="k">（3）</span>由（2）得 ∠APC = 2∠AQC = 2×35° = <b>70°</b>。</p>
+      <p class="rubric"><b>评分：</b>(1) 3 分（辅助线并推出 ∠APC = ∠BAP + ∠DCP 得 2 分，结果 1 分）；(2) 4 分（结论 1 分，用角平分线表示 ½ 得 2 分，推导完整 1 分）；(3) 3 分。</p>
+    </div>
+    <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="10" data-max="10"> / 10 分</div>
+  </div>
+
+  <div class="foot">
+    <span>本卷共 22 小题 · 选择题 30 分 + 填空题 24 分 + 解答题 46 分</span>
+    <span id="sum-check">分值核对：30 + 24 + 46 = <b>100</b> ✔</span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $$ = function(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); };
+  var body = document.body;
+  var instant = document.getElementById('instant');
+
+  /* ---------- 答案归一化：容错全角/空格/顺序/单位 ---------- */
+  function norm(s){
+    return String(s == null ? '' : s)
+      .replace(/[\s\u3000]/g,'')
+      .replace(/[\uFF01-\uFF5E]/g, function(c){ return String.fromCharCode(c.charCodeAt(0) - 0xFEE0); })
+      .replace(/[＋]/g,'+')
+      .replace(/[－—–−﹣]/g,'-')
+      .replace(/[，、；;]/g,',')
+      .replace(/[’‘＇']/g,'′')
+      .replace(/cm|CM|Cm|厘米/g,'')
+      .replace(/或/g,',')
+      .replace(/和/g,',')
+      .replace(/^\(|\)$/g,'')
+      .toUpperCase();
+  }
+  function keyOf(s){
+    var n = norm(s);
+    if(!n) return '';
+    return n.split(',').filter(Boolean)
+      .map(function(p){ return p.replace(/^\+/,''); })   // 去掉正号，+4 与 4 视为同一个数
+      .sort().join(',');
+  }
+  function blankOk(input){
+    var k = keyOf(input.value);
+    if(!k) return false;
+    return (input.dataset.answers || '').split('|').some(function(a){ return keyOf(a) === k; });
+  }
+
+  /* ---------- 选择题 ---------- */
+  $$('.q[data-type="choice"]').forEach(function(q){
+    $$('.opt', q).forEach(function(opt){
+      opt.addEventListener('click', function(){
+        // 允许改选：清掉旧的判定痕迹后重新判
+        $$('.opt', q).forEach(function(o){ o.classList.remove('selected'); });
+        opt.classList.add('selected');
+        q.dataset.picked = opt.dataset.opt;
+        q.classList.remove('judged','ok','bad');
+        var fb = q.querySelector('.fb'); if(fb) fb.textContent = '';
+        if(instant.checked) judgeChoice(q);
+        updateScore();
+      });
+    });
+  });
+
+  function judgeChoice(q){
+    var picked = q.dataset.picked || '';
+    var ans = q.dataset.answer;
+    $$('.opt', q).forEach(function(o){
+      o.classList.remove('correct','wrong');
+      if(o.dataset.opt === ans) o.classList.add('correct');
+      if(picked && o.dataset.opt === picked && picked !== ans) o.classList.add('wrong');
+    });
+    q.classList.add('judged');
+    q.classList.toggle('ok', picked === ans);
+    q.classList.toggle('bad', !!picked && picked !== ans);
+    var fb = q.querySelector('.fb');
+    if(fb) fb.textContent = picked ? (picked === ans ? '✔ 正确' : '✘ 错误，正确选项 ' + ans) : '未作答（正确选项 ' + ans + '）';
+    if(picked !== ans) openAns(q);
+  }
+
+  /* ---------- 填空题 ---------- */
+  $$('.q[data-type="blank"] .bi').forEach(function(input){
+    input.addEventListener('focus', function(){ input.select(); });
+    input.addEventListener('blur', function(){
+      if(instant.checked && input.value.trim() !== '') judgeBlank(input.closest('.q'));
+    });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); judgeBlank(input.closest('.q')); updateScore(); }
+    });
+  });
+
+  function judgeBlank(q){
+    var ins = $$('.bi', q);
+    var allOk = true, anyFilled = false;
+    ins.forEach(function(i){
+      if((i.value || '').trim() !== '') anyFilled = true;
+      var ok = blankOk(i);
+      i.classList.remove('ok','bad','judged');
+      i.classList.add(ok ? 'ok' : 'bad');
+      if(!ok){ allOk = false; }
+    });
+    q.classList.toggle('ok', allOk && anyFilled);
+    q.classList.toggle('bad', !allOk);
+    var fb = q.querySelector('.fb');
+    if(fb) fb.textContent = allOk && anyFilled ? '✔' : (anyFilled ? '✘ 见解析' : '');
+    if(!allOk) openAns(q);
+  }
+
+  /* ---------- 答案解析展开 ---------- */
+  function openAns(q){
+    var p = q.querySelector('.ans'), b = q.querySelector('.ans-toggle');
+    if(p) p.classList.add('show');
+    if(b) b.classList.add('on');
+  }
+  $$('.q').forEach(function(q){
+    var btn = q.querySelector('.ans-toggle');
+    if(!btn) return;
+    btn.addEventListener('click', function(){
+      var p = q.querySelector('.ans');
+      var on = p.classList.toggle('show');
+      btn.classList.toggle('on', on);
+    });
+  });
+
+  /* ---------- 判分 / 计分 ---------- */
+  function updateScore(){
+    var sChoice = 0, sBlank = 0, sEssay = 0, obj = 0;
+    $$('.q[data-type="choice"]').forEach(function(q){
+      var s = parseFloat(q.dataset.score) || 0; sChoice += s;
+      if(q.dataset.picked && q.dataset.picked === q.dataset.answer) obj += s;
+    });
+    $$('.q[data-type="blank"]').forEach(function(q){
+      var s = parseFloat(q.dataset.score) || 0; sBlank += s;
+      var ins = $$('.bi', q); if(!ins.length) return;
+      var per = s / ins.length;
+      ins.forEach(function(i){ if(blankOk(i)) obj += per; });
+    });
+    $$('.q[data-type="essay"]').forEach(function(q){ sEssay += parseFloat(q.dataset.score) || 0; });
+    var self = 0, selfMax = 0;
+    $$('.selfscore').forEach(function(inp){
+      var mx = parseFloat(inp.dataset.max) || 0;
+      selfMax += mx;
+      var v = parseFloat(inp.value); if(!isFinite(v) || v < 0) v = 0;
+      if(v > mx) v = mx;
+      self += v;
+    });
+    if(sEssay === 0) sEssay = selfMax;
+    var totalMax = sChoice + sBlank + sEssay;
+    document.getElementById('obj-score').textContent = fmt(obj);
+    document.getElementById('self-score').textContent = fmt(self);
+    document.getElementById('total-score').textContent = fmt(obj + self);
+    var sc = document.getElementById('sum-check');
+    if(sc) sc.innerHTML = '分值核对：' + fmt(sChoice) + ' + ' + fmt(sBlank)
+      + ' + ' + fmt(sEssay) + ' = <b>' + fmt(totalMax) + '</b> ✔';
+  }
+
+  function fmt(n){ return (Math.round(n * 10) / 10).toString(); }
+
+  document.getElementById('btn-judge').addEventListener('click', function(){
+    $$('.q[data-type="choice"]').forEach(judgeChoice);
+    $$('.q[data-type="blank"]').forEach(judgeBlank);
+    updateScore();
+  });
+
+  /* ---------- 答案显隐 ---------- */
+  var btnAns = document.getElementById('btn-ans');
+  function setAllAns(show){
+    body.classList.toggle('show-ans', show);
+    $$('.ans').forEach(function(p){ p.classList.toggle('show', show); });
+    $$('.ans-toggle').forEach(function(b){ b.classList.toggle('on', show); });
+    btnAns.textContent = show ? '隐藏答案' : '显示答案';
+    btnAns.classList.toggle('on', show);
+  }
+  btnAns.addEventListener('click', function(){
+    setAllAns(!body.classList.contains('show-ans'));
+  });
+
+  /* ---------- 重置 ---------- */
+  document.getElementById('btn-reset').addEventListener('click', function(){
+    if(!confirm('确定清空所有作答与评分？')) return;
+    $$('.q[data-type="choice"]').forEach(function(q){
+      delete q.dataset.picked;
+      q.classList.remove('judged','ok','bad');
+      $$('.opt', q).forEach(function(o){ o.classList.remove('selected','correct','wrong'); });
+      var fb = q.querySelector('.fb'); if(fb) fb.textContent = '';
+    });
+    $$('.bi').forEach(function(i){ i.value = ''; i.classList.remove('ok','bad','judged'); i.removeAttribute('title'); });
+    $$('.selfscore').forEach(function(i){ i.value = ''; });
+    $$('.q[data-type="blank"]').forEach(function(q){
+      q.classList.remove('ok','bad');
+      var fb = q.querySelector('.fb'); if(fb) fb.textContent = '';
+    });
+    setAllAns(false);
+    updateScore();
+  });
+
+  /* ---------- 自评联动 ---------- */
+  $$('.selfscore').forEach(function(inp){
+    inp.addEventListener('input', updateScore);
+    inp.addEventListener('change', updateScore);
+  });
+
+  /* ---------- 打印 ---------- */
+  function printWithAnswers(show){
+    body.classList.toggle('show-ans', show);
+    $$('.ans').forEach(function(p){ p.classList.toggle('show', show); });
+    $$('.ans-toggle').forEach(function(b){ b.classList.toggle('on', show); });
+    btnAns.textContent = show ? '隐藏答案' : '显示答案';
+    btnAns.classList.toggle('on', show);
+    setTimeout(function(){ window.print(); }, 60);
+  }
+  document.getElementById('btn-print-q').addEventListener('click', function(){ printWithAnswers(false); });
+  document.getElementById('btn-print-a').addEventListener('click', function(){ printWithAnswers(true); });
+
+  updateScore();
+})();
+</script>
+</body>
+</html>
