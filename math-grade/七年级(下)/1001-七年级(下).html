@@ -164,9 +164,14 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
 .q.bad .fb{color:var(--red)}
 
 /* 数学排版 */
-.frac{display:inline-flex;flex-direction:column;vertical-align:-.42em;text-align:center;font-size:.92em;line-height:1.15;margin:0 3px}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.9em;line-height:1.12;margin:0 2px;position:relative;top:-.08em}
 .frac>span:first-child{border-bottom:1.2px solid currentColor;padding:0 4px 1px}
 .frac>span:last-child{padding:1px 4px 0}
+.paren{font-size:1.3em;vertical-align:-.06em;line-height:1}
+.sys{display:inline-flex;align-items:center;vertical-align:middle;margin:0 3px;line-height:1.3}
+.sys::before{content:"";align-self:stretch;-webkit-print-color-adjust:exact;print-color-adjust:exact;width:.44em;margin-right:2px;background:currentColor;-webkit-mask:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 100' preserveAspectRatio='none'%3E%3Cpath d='M18.5 2.5C10 9 8.6 19 8.6 33 8.6 45 7.4 48.6 2.5 50 7.4 51.4 8.6 55 8.6 67 8.6 81 10 91 18.5 97.5' fill='none' stroke='%23000' stroke-width='5.5'/%3E%3C/svg%3E") left center/100% 100% no-repeat;mask:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 100' preserveAspectRatio='none'%3E%3Cpath d='M18.5 2.5C10 9 8.6 19 8.6 33 8.6 45 7.4 48.6 2.5 50 7.4 51.4 8.6 55 8.6 67 8.6 81 10 91 18.5 97.5' fill='none' stroke='%23000' stroke-width='5.5'/%3E%3C/svg%3E") left center/100% 100% no-repeat}
+.sys .rows{display:inline-flex;flex-direction:column;font-size:.95em;line-height:1.42}
+.sys .rows>span{display:block;white-space:nowrap}
 .sq>.rad{border-top:1.2px solid currentColor;padding:0 2px;margin-left:-1px}
 
 /* 页脚 */
@@ -246,7 +251,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <div class="ans">
       <p><span class="k">答案：</span>D</p>
       <p><span class="k">解析：</span>A 应为 a<sup>5</sup>（同底数幂相乘，指数相加）；B 应为 a<sup>6</sup>（幂的乘方，指数相乘）；C 应为 a<sup>4</sup>（同底数幂相除，指数相减）；D 正确（积的乘方，各因式分别乘方）。</p>
-      <p class="warn">三个法则的区别就在指数"加、乘、减"，混用是本章最主要的失分点。</p>
+      <p class="warn">三个法则的区别就在指数“加、乘、减”，混用是本章最主要的失分点。</p>
     </div>
   </div>
 
@@ -280,7 +285,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <button class="ans-toggle">答案</button>
     <div class="ans">
       <p><span class="k">答案：</span>B</p>
-      <p><span class="k">解析：</span>分式的值为 0 须同时满足"分子为 0"且"分母不为 0"。<br>
+      <p><span class="k">解析：</span>分式的值为 0 须同时满足“分子为 0”且“分母不为 0”。<br>
       由 x − 1 = 0 得 x = 1；此时 x + 2 = 3 ≠ 0，符合要求，故 x = 1。</p>
       <p class="warn">C 的陷阱：x = −2 使分母为 0，分式无意义，不能算。</p>
     </div>
@@ -323,7 +328,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
   </div>
 
   <div class="q" data-type="choice" data-score="3" data-answer="B">
-    <div class="q-head"><span class="q-num">6.</span><span class="q-text">计算 2<sup>0</sup> + (−<span class="frac"><span>1</span><span>2</span></span>)<sup>−2</sup> 的结果是（　　）</span><span class="tag">整式的乘除 · 零指数与负整数指数幂</span></div>
+    <div class="q-head"><span class="q-num">6.</span><span class="q-text">计算 2<sup>0</sup> + <span class="paren">(−</span><span class="frac"><span>1</span><span>2</span></span><span class="paren">)</span><sup>−2</sup> 的结果是（　　）</span><span class="tag">整式的乘除 · 零指数与负整数指数幂</span></div>
     <div class="opts">
       <div class="opt" data-opt="A"><b>A.</b> 3</div>
       <div class="opt" data-opt="B"><b>B.</b> 5</div>
@@ -335,7 +340,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <div class="ans">
       <p><span class="k">答案：</span>B</p>
       <p><span class="k">解析：</span>2<sup>0</sup> = 1（任何不等于 0 的数的零次幂都等于 1）；<br>
-      (−<span class="frac"><span>1</span><span>2</span></span>)<sup>−2</sup> = (<span class="frac"><span>1</span><span>−1/2</span></span>)<sup>2</sup> = (−2)<sup>2</sup> = 4。<br>
+      <span class="paren">(−</span><span class="frac"><span>1</span><span>2</span></span><span class="paren">)</span><sup>−2</sup> = <span class="paren">(</span><span class="frac"><span>1</span><span>−1/2</span></span><span class="paren">)</span><sup>2</sup> = (−2)<sup>2</sup> = 4。<br>
       所以原式 = 1 + 4 = 5。</p>
       <p class="warn">a<sup>−n</sup> = 1/a<sup>n</sup>（a ≠ 0）。负号在括号里，(−½)<sup>−2</sup> 的结果是正数 4。</p>
     </div>
@@ -355,10 +360,10 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
         <text x="88" y="172" font-size="14" fill="#1e3a5f">C</text>
         <text x="350" y="165" font-size="14" fill="#1e3a5f">D</text>
         <text x="207" y="93" font-size="14" fill="#b0302a">E</text>
-        <path d="M 152 40 A 22 22 0 0 1 147 57" fill="none" stroke="#b0302a" stroke-width="1.1"/>
-        <text x="150" y="72" font-size="11.5" fill="#b0302a">40°</text>
-        <path d="M 120 160 A 22 22 0 0 1 125 143" fill="none" stroke="#b0302a" stroke-width="1.1"/>
-        <text x="106" y="140" font-size="11.5" fill="#b0302a">30°</text>
+        <path d="M 156 40 A 26 26 0 0 1 150 56.6" fill="none" stroke="#b0302a" stroke-width="1.1"/>
+        <text x="178" y="64" font-size="11" fill="#b0302a" text-anchor="middle">40°</text>
+        <path d="M 124 160 A 26 26 0 0 0 120.5 147" fill="none" stroke="#b0302a" stroke-width="1.1"/>
+        <text x="104" y="138" font-size="11" fill="#b0302a">30°</text>
       </svg>
     </div>
     <div class="opts">
@@ -398,12 +403,12 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
   </div>
 
   <div class="q" data-type="choice" data-score="3" data-answer="D">
-    <div class="q-head"><span class="q-num">9.</span><span class="q-text">二元一次方程组 <span style="white-space:nowrap">{ 2x + y = 7，x − y = 2 }</span> 的解是（　　）</span><span class="tag">二元一次方程组 · 解法</span></div>
+    <div class="q-head"><span class="q-num">9.</span><span class="q-text">二元一次方程组 <span style="white-space:nowrap"><span class="sys"><span class="rows"><span>2x + y = 7</span><span>x − y = 2</span></span></span></span> 的解是（　　）</span><span class="tag">二元一次方程组 · 解法</span></div>
     <div class="opts">
-      <div class="opt" data-opt="A"><b>A.</b> { x = 1，y = 3 }</div>
-      <div class="opt" data-opt="B"><b>B.</b> { x = 3，y = −1 }</div>
-      <div class="opt" data-opt="C"><b>C.</b> { x = −3，y = 1 }</div>
-      <div class="opt" data-opt="D"><b>D.</b> { x = 3，y = 1 }</div>
+      <div class="opt" data-opt="A"><b>A.</b> <span class="sys"><span class="rows"><span>x = 1</span><span>y = 3</span></span></span></div>
+      <div class="opt" data-opt="B"><b>B.</b> <span class="sys"><span class="rows"><span>x = 3</span><span>y = −1</span></span></span></div>
+      <div class="opt" data-opt="C"><b>C.</b> <span class="sys"><span class="rows"><span>x = −3</span><span>y = 1</span></span></span></div>
+      <div class="opt" data-opt="D"><b>D.</b> <span class="sys"><span class="rows"><span>x = 3</span><span>y = 1</span></span></span></div>
     </div>
     <span class="fb"></span>
     <button class="ans-toggle">答案</button>
@@ -428,7 +433,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <div class="ans">
       <p><span class="k">答案：</span>D</p>
       <p><span class="k">解析：</span>方程两边同乘 (x − 3)，得 x + m = 2(x − 3)，即 x = m + 6。<br>
-      "有增根"说明这个解使最简公分母 x − 3 = 0，即 x = 3。<br>
+      “有增根”说明这个解使最简公分母 x − 3 = 0，即 x = 3。<br>
       代入得 3 = m + 6，所以 m = −3。</p>
       <p class="warn">增根的求法：先解出含参数的解，再令最简公分母为 0，不要直接把 x = 3 代回原方程（那会得到 0 = 2 的矛盾式）。</p>
     </div>
@@ -439,11 +444,11 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
 
   <div class="fill-grid">
     <div class="q" data-type="blank" data-score="4">
-      <div class="q-head"><span class="q-num">11.</span><span class="q-text">计算：(−2)<sup>3</sup> + (−<span class="frac"><span>1</span><span>3</span></span>)<sup>−1</sup> = <input class="bi" data-answers="-11|（-11）|(-11)" autocomplete="off">。</span></div>
+      <div class="q-head"><span class="q-num">11.</span><span class="q-text">计算：(−2)<sup>3</sup> + <span class="paren">(−</span><span class="frac"><span>1</span><span>3</span></span><span class="paren">)</span><sup>−1</sup> = <input class="bi" data-answers="-11|（-11）|(-11)" autocomplete="off">。</span></div>
       <span class="fb"></span>
       <div class="ans">
         <p><span class="k">答案：</span>−11</p>
-        <p><span class="k">解析：</span>(−2)<sup>3</sup> = −8；(−<span class="frac"><span>1</span><span>3</span></span>)<sup>−1</sup> = −3。<br>
+        <p><span class="k">解析：</span>(−2)<sup>3</sup> = −8；<span class="paren">(−</span><span class="frac"><span>1</span><span>3</span></span><span class="paren">)</span><sup>−1</sup> = −3。<br>
         所以原式 = −8 + (−3) = −11。</p>
         <p class="warn">负数的负整数次幂仍为负数，(−⅓)<sup>−1</sup> 不要写成 3。</p>
       </div>
@@ -493,7 +498,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
   </div>
 
   <div class="q" data-type="blank" data-score="4">
-    <div class="q-head"><span class="q-num">16.</span><span class="q-text">某班共有 40 名学生，其中"每天阅读时间不少于 1 小时"这一组的频率是 0.25，则该组的频数是 <input class="bi" data-answers="10" autocomplete="off"> 人。</span></div>
+    <div class="q-head"><span class="q-num">16.</span><span class="q-text">某班共有 40 名学生，其中“每天阅读时间不少于 1 小时”这一组的频率是 0.25，则该组的频数是 <input class="bi" data-answers="10" autocomplete="off"> 人。</span></div>
     <span class="fb"></span>
     <div class="ans">
       <p><span class="k">答案：</span>10</p>
@@ -531,15 +536,15 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
   <div class="q" data-type="essay" data-score="8">
     <div class="q-head"><span class="q-num">18.</span><span class="q-text">（本题 8 分）解方程（组）：</span><span class="tag">二元一次方程组 · 分式方程 · 含参</span></div>
     <div class="sub-q">
-      <p>（1）<span style="white-space:nowrap">{ 2(x + 1) − 3(y − 2) = 3，3(x + 1) + 2(y − 2) = 11 }</span></p>
+      <p>（1）<span style="white-space:nowrap"><span class="sys"><span class="rows"><span>2(x + 1) − 3(y − 2) = 3</span><span>3(x + 1) + 2(y − 2) = 11</span></span></span></span></p>
       <p>（2）<span class="frac"><span>1</span><span>x − 2</span></span> + 3 = <span class="frac"><span>x − 1</span><span>x − 2</span></span></p>
-      <p>（3）已知方程组 <span style="white-space:nowrap">{ ax + by = 5，bx + ay = 7 }</span> 的解是 <span style="white-space:nowrap">{ x = 1，y = 2 }</span>，求 a + b 的值。</p>
+      <p>（3）已知方程组 <span style="white-space:nowrap"><span class="sys"><span class="rows"><span>ax + by = 5</span><span>bx + ay = 7</span></span></span></span> 的解是 <span style="white-space:nowrap"><span class="sys"><span class="rows"><span>x = 1</span><span>y = 2</span></span></span></span>，求 a + b 的值。</p>
     </div>
     <div class="work-lines"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
       <p><span class="k">（1）</span>设 u = x + 1，v = y − 2，原方程组化为<br>
-      <span style="white-space:nowrap">{ 2u − 3v = 3，3u + 2v = 11 }</span><br>
+      <span style="white-space:nowrap"><span class="sys"><span class="rows"><span>2u − 3v = 3</span><span>3u + 2v = 11</span></span></span></span><br>
       ①×2 得 4u − 6v = 6，②×3 得 9u + 6v = 33，两式相加得 13u = 39，u = 3。<br>
       把 u = 3 代入 2u − 3v = 3，得 v = 1。<br>
       所以 x + 1 = 3，y − 2 = 1，即 <b>x = 2，y = 3</b>。</p>
@@ -549,11 +554,11 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       <b>检验：</b>当 x = 2 时，x − 2 = 0，原方程中的分式无意义，x = 2 是增根。<br>
       所以<b>原方程无解</b>。</p>
       <p><span class="k">（3）</span>把 x = 1，y = 2 代入，得<br>
-      <span style="white-space:nowrap">{ a + 2b = 5，2a + b = 7 }</span><br>
+      <span style="white-space:nowrap"><span class="sys"><span class="rows"><span>a + 2b = 5</span><span>2a + b = 7</span></span></span></span><br>
       两式相加得 3a + 3b = 12，所以 <b>a + b = 4</b>。</p>
-      <p class="warn">(2) 若只写到 x = 2 就收尾，是本题最典型的失分点——分式方程必须检验，增根要写"原方程无解"。<br>
+      <p class="warn">(2) 若只写到 x = 2 就收尾，是本题最典型的失分点——分式方程必须检验，增根要写“原方程无解”。<br>
       (3) 不必分别求出 a、b，把两个方程直接相加即可。</p>
-      <p class="rubric"><b>评分：</b>(1) 2 分（换元或整理 1 分，结果 1 分）；(2) 4 分（去分母 2 分，求出 x = 2 得 1 分，<b>判增根并答"无解" 1 分</b>）；(3) 2 分（代入得方程组 1 分，整体相加 1 分）。</p>
+      <p class="rubric"><b>评分：</b>(1) 2 分（换元或整理 1 分，结果 1 分）；(2) 4 分（去分母 2 分，求出 x = 2 得 1 分，<b>判增根并答“无解” 1 分</b>）；(3) 2 分（代入得方程组 1 分，整体相加 1 分）。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
   </div>
@@ -572,7 +577,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       <p><span class="k">（2）</span>原式 = (x<sup>2</sup> + 4)<sup>2</sup> − (4x)<sup>2</sup><br>
       = (x<sup>2</sup> + 4 + 4x)(x<sup>2</sup> + 4 − 4x)<br>
       = <b>(x + 2)<sup>2</sup>(x − 2)<sup>2</sup></b></p>
-      <p class="warn">两题都要"分到底"：(1) 只写到 (x<sup>2</sup> + 4)(x<sup>2</sup> − 4) 未完成；(2) 括号内要先按 x 降幂整理成 x<sup>2</sup> ± 4x + 4，才看得出是完全平方式。</p>
+      <p class="warn">两题都要“分到底”：(1) 只写到 (x<sup>2</sup> + 4)(x<sup>2</sup> − 4) 未完成；(2) 括号内要先按 x 降幂整理成 x<sup>2</sup> ± 4x + 4，才看得出是完全平方式。</p>
       <p class="rubric"><b>评分：</b>每小题 3 分。(1) 平方差 2 分，再分解 1 分；(2) 看出 16x<sup>2</sup> = (4x)<sup>2</sup> 得 1 分，平方差 1 分，整理成完全平方式 1 分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
@@ -590,7 +595,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       所以 x ≠ −1，x ≠ 1，x ≠ 0。<br>
       在 −2、−1、1、2 中，只有 <b>−2 和 2</b> 符合要求。</p>
       <p>当 x = 2 时，原式 = 2 − 1 = <b>1</b>；　当 x = −2 时，原式 = −2 − 1 = <b>−3</b>。（任选其一即可）</p>
-      <p class="warn">题目没有直接给 x 的值，就是为了考"取值限制"：−1 使分母为 0，1 使 x<sup>2</sup> − 1 = 0，0 使除数为 0，都不能选。<br>
+      <p class="warn">题目没有直接给 x 的值，就是为了考“取值限制”：−1 使分母为 0，1 使 x<sup>2</sup> − 1 = 0，0 使除数为 0，都不能选。<br>
       只写结果不说排除理由的，扣 1 分。</p>
       <p class="rubric"><b>评分：</b>括号内通分 2 分，除法转乘法并因式分解 2 分，化简结果 1 分，写出 x 的取值范围并选出合适的值 1 分，代入求值 2 分。<br>
       若先代入数值再算，最多给 3 分。</p>
@@ -608,8 +613,8 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
         <line x1="280" y1="50" x2="176.3" y2="110" stroke="#b0302a" stroke-width="1.6"/>
         <line x1="211" y1="170" x2="176.3" y2="110" stroke="#b0302a" stroke-width="1.6"/>
         <path d="M 186.7 104.0 L 192.7 114.4 L 182.3 120.4" fill="none" stroke="#b0302a" stroke-width="1.3"/>
-        <path d="M 260.3 63.8 A 24 24 0 0 0 268.0 70.8" fill="none" stroke="#7a8fa6" stroke-width="1.2"/>
-        <path d="M 211.0 146.0 A 24 24 0 0 1 223.0 149.2" fill="none" stroke="#7a8fa6" stroke-width="1.2"/>
+        <path d="M 256.0 50.0 A 24 24 0 0 0 268.0 70.8" fill="none" stroke="#7a8fa6" stroke-width="1.2"/>
+        <path d="M 187.0 170.0 A 24 24 0 0 1 223.0 149.2" fill="none" stroke="#7a8fa6" stroke-width="1.2"/>
         <circle cx="280" cy="50" r="2.8" fill="#b0302a"/>
         <circle cx="211" cy="170" r="2.8" fill="#b0302a"/>
         <circle cx="176.3" cy="110" r="2.8" fill="#b0302a"/>
@@ -634,9 +639,9 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       所以 ∠AEF + ∠CFE = 2(∠GEF + ∠GFE) = 2 × 90° = 180°。</p>
       <p>∠AEF 与 ∠CFE 是直线 AB、CD 被直线 EF 所截得的<b>同旁内角</b>，<br>
       同旁内角互补，所以 <b>AB∥CD</b>。</p>
-      <p class="warn">本题的关键是"先把 90° 平分给两个角，再各自翻倍"，即 ½ 与 2 互为逆运算。<br>
-      若把 ∠AEF 与 ∠CFE 误判为内错角（相等），结论会变成"两线不平行"，属于性质混淆。</p>
-      <p class="rubric"><b>评分：</b>由垂直得 ∠GEF + ∠GFE = 90° 得 3 分；用角平分线写出 ∠AEF = 2∠GEF、∠CFE = 2∠GFE 得 2 分；得出 ∠AEF + ∠CFE = 180° 得 2 分；判定 AB∥CD 并点明"同旁内角互补" 得 1 分。</p>
+      <p class="warn">本题的关键是“先把 90° 平分给两个角，再各自翻倍”，即 ½ 与 2 互为逆运算。<br>
+      若把 ∠AEF 与 ∠CFE 误判为内错角（相等），结论会变成“两线不平行”，属于性质混淆。</p>
+      <p class="rubric"><b>评分：</b>由垂直得 ∠GEF + ∠GFE = 90° 得 3 分；用角平分线写出 ∠AEF = 2∠GEF、∠CFE = 2∠GFE 得 2 分；得出 ∠AEF + ∠CFE = 180° 得 2 分；判定 AB∥CD 并点明“同旁内角互补” 得 1 分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
   </div>
@@ -652,7 +657,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <button class="ans-toggle">答案</button>
     <div class="ans">
       <p><span class="k">（1）</span>设租 A 型车 x 辆，B 型车 y 辆。<br>
-      依题意得：<span style="white-space:nowrap">{ x + y = 9，45x + 30y = 330 }</span><br>
+      依题意得：<span style="white-space:nowrap"><span class="sys"><span class="rows"><span>x + y = 9</span><span>45x + 30y = 330</span></span></span></span><br>
       把 y = 9 − x 代入，得 45x + 30(9 − x) = 330，<br>
       即 15x + 270 = 330，15x = 60，x = 4，所以 y = 5。<br>
       <b>答：租 A 型车 4 辆，B 型车 5 辆。</b></p>
@@ -686,7 +691,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
         </g>
         <g fill="#cfdcf0" stroke="#1e3a5f" stroke-width="1.4">
           <rect x="106" y="130" width="54" height="30"/>
-          <rect x="160" y="100" width="54" height="60"/>
+          <rect x="160" y="112" width="54" height="48"/>
           <rect x="214" y="55" width="54" height="105"/>
           <rect x="268" y="85" width="54" height="75"/>
           <rect x="322" y="130" width="54" height="30"/>
@@ -704,7 +709,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
           <text x="133" y="123">20</text><text x="241" y="48">70</text>
           <text x="295" y="78">50</text><text x="349" y="123">20</text>
         </g>
-        <text x="187" y="130" font-size="14" fill="#b0302a" text-anchor="middle">?</text>
+        <text x="187" y="142" font-size="14" fill="#b0302a" text-anchor="middle">?</text>
         <text x="54" y="100" font-size="11.5" fill="#1e3a5f">频数</text>
         <text x="344" y="194" font-size="11.5" fill="#1e3a5f">时间（小时）</text>
       </svg>
@@ -727,8 +732,8 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       所以第 100、101 个数据都落在 <b>2～3 小时</b>这一组，中位数在 <b>2～3 小时</b>组。</p>
       <p><span class="k">（3）</span>阅读时间不少于 3 小时的是后两组，频数之和为 50 + 20 = 70，占样本的 <span class="frac"><span>70</span><span>200</span></span> = 0.35。<br>
       估计全校约有 1400 × 0.35 = <b>490</b>（人）。</p>
-      <p class="warn">(2) 的常见错误是"取第 100 个所在的组"却不看累计频数，或者把中位数当成"频数最多的组"。<br>
-      中位数只看<b>位置</b>（第 100、101 个），与"2～3 小时频数最多"是两个不同的概念。</p>
+      <p class="warn">(2) 的常见错误是“取第 100 个所在的组”却不看累计频数，或者把中位数当成“频数最多的组”。<br>
+      中位数只看<b>位置</b>（第 100、101 个），与“2～3 小时频数最多”是两个不同的概念。</p>
       <p class="rubric"><b>评分：</b>(1) 3 分（补出频数 40 得 2 分，频率 1 分）；(2) 3 分（累计频数 2 分，结论 1 分）；(3) 4 分（频数之和 2 分，比例 1 分，结果 1 分）。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="10" data-max="10"> / 10 分</div>
@@ -761,14 +766,14 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       两者表示同一块面积，所以 <b>(a + b)<sup>2</sup> = 4ab + (a − b)<sup>2</sup></b>。</p>
       <p><span class="k">（2）</span>由（1）得 (a − b)<sup>2</sup> = (a + b)<sup>2</sup> − 4ab = 13<sup>2</sup> − 4×40 = 169 − 160 = 9。<br>
       因为 a &gt; b，所以 a − b &gt; 0，故 <b>a − b = 3</b>。<br>
-      于是 <span style="white-space:nowrap">{ a + b = 13，a − b = 3 }</span>，两式相加得 2a = 16，a = 8，<br>
+      于是 <span style="white-space:nowrap"><span class="sys"><span class="rows"><span>a + b = 13</span><span>a − b = 3</span></span></span></span>，两式相加得 2a = 16，a = 8，<br>
       所以 <b>a = 8，b = 5</b>。（检验：ab = 40 ✓）</p>
       <p><span class="k">（3）</span>小正方形面积为 4，即 (a − b)<sup>2</sup> = 4，又 a &gt; b，得 <b>a − b = 2</b>。<br>
       4 个长方形的面积之和为 4ab = 96，所以 ab = 24。<br>
       由（1）的等式得 (a + b)<sup>2</sup> = 4ab + (a − b)<sup>2</sup> = 96 + 4 = 100，<br>
       因为 a + b &gt; 0，所以 <b>a + b = 10</b>。<br>
-      于是 <span style="white-space:nowrap">{ a + b = 10，a − b = 2 }</span>，解得 <b>a = 6，b = 4</b>。（检验：ab = 24 ✓）</p>
-      <p class="warn">(3) 是"反向用公式"：题目不给 a − b 也不给 a + b，要先用面积条件分别求出这两个量，才能解出 a、b。<br>
+      于是 <span style="white-space:nowrap"><span class="sys"><span class="rows"><span>a + b = 10</span><span>a − b = 2</span></span></span></span>，解得 <b>a = 6，b = 4</b>。（检验：ab = 24 ✓）</p>
+      <p class="warn">(3) 是“反向用公式”：题目不给 a − b 也不给 a + b，要先用面积条件分别求出这两个量，才能解出 a、b。<br>
       (2)(3) 中取平方根时都必须用"a &gt; b"或"a + b &gt; 0"排除负值，只写正根的说明不完整的扣 1 分。</p>
       <p class="rubric"><b>评分：</b>(1) 3 分（两种表示各 1 分，等式 1 分）；(2) 3 分（用等式求 (a − b)<sup>2</sup> 得 1 分，取正根并说明 1 分，解出 a、b 得 1 分）；(3) 4 分（得 a − b = 2 与 ab = 24 各 1 分，求出 a + b = 10 得 1 分，解出 a、b 得 1 分）。</p>
     </div>

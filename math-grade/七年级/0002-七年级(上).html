@@ -163,9 +163,14 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
 .q.bad .fb{color:var(--red)}
 
 /* 数学排版 */
-.frac{display:inline-flex;flex-direction:column;vertical-align:-.42em;text-align:center;font-size:.92em;line-height:1.15;margin:0 3px}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.9em;line-height:1.12;margin:0 2px;position:relative;top:-.08em}
 .frac>span:first-child{border-bottom:1.2px solid currentColor;padding:0 4px 1px}
 .frac>span:last-child{padding:1px 4px 0}
+.paren{font-size:1.3em;vertical-align:-.06em;line-height:1}
+.sys{display:inline-flex;align-items:center;vertical-align:middle;margin:0 3px;line-height:1.3}
+.sys::before{content:"";align-self:stretch;-webkit-print-color-adjust:exact;print-color-adjust:exact;width:.44em;margin-right:2px;background:currentColor;-webkit-mask:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 100' preserveAspectRatio='none'%3E%3Cpath d='M18.5 2.5C10 9 8.6 19 8.6 33 8.6 45 7.4 48.6 2.5 50 7.4 51.4 8.6 55 8.6 67 8.6 81 10 91 18.5 97.5' fill='none' stroke='%23000' stroke-width='5.5'/%3E%3C/svg%3E") left center/100% 100% no-repeat;mask:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 100' preserveAspectRatio='none'%3E%3Cpath d='M18.5 2.5C10 9 8.6 19 8.6 33 8.6 45 7.4 48.6 2.5 50 7.4 51.4 8.6 55 8.6 67 8.6 81 10 91 18.5 97.5' fill='none' stroke='%23000' stroke-width='5.5'/%3E%3C/svg%3E") left center/100% 100% no-repeat}
+.sys .rows{display:inline-flex;flex-direction:column;font-size:.95em;line-height:1.42}
+.sys .rows>span{display:block;white-space:nowrap}
 .sq>.rad{border-top:1.2px solid currentColor;padding:0 2px;margin-left:-1px}
 
 /* 页脚 */
@@ -244,7 +249,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <button class="ans-toggle">答案</button>
     <div class="ans">
       <p><span class="k">答案：</span>D</p>
-      <p><span class="k">解析：</span>乘积为 1 的两个数互为倒数。因为 −2026 × (−<span class="frac"><span>1</span><span>2026</span></span>) = 1，所以 −2026 的倒数是 −<span class="frac"><span>1</span><span>2026</span></span>。</p>
+      <p><span class="k">解析：</span>乘积为 1 的两个数互为倒数。因为 −2026 × <span class="paren">(−</span><span class="frac"><span>1</span><span>2026</span></span><span class="paren">)</span> = 1，所以 −2026 的倒数是 −<span class="frac"><span>1</span><span>2026</span></span>。</p>
       <p class="warn">易错：A 是相反数，C 是 2026 的倒数。负数的倒数仍是负数。</p>
     </div>
   </div>
@@ -407,11 +412,11 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <button class="ans-toggle">答案</button>
     <div class="ans">
       <p><span class="k">答案：</span>A（顺便可得 x = 7，全班 38 人）</p>
-      <p><span class="k">解析：</span>抓住"学生人数不变"这个等量关系。<br>
+      <p><span class="k">解析：</span>抓住“学生人数不变”这个等量关系。<br>
       每组 5 人、分 x 组，还剩 3 人没分进组，人数为 5x + 3；<br>
       每组 6 人、分 x 组，还差 4 人才够分，人数为 6x − 4。<br>
       所以 5x + 3 = 6x − 4。</p>
-      <p class="warn">"多"与"少"直接决定加号还是减号，这一步最容易出错。</p>
+      <p class="warn">“多”与“少”直接决定加号还是减号，这一步最容易出错。</p>
     </div>
   </div>
 
@@ -432,7 +437,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       <p><span class="k">答案：</span>A</p>
       <p><span class="k">解析：</span>三个等式的右边依次是 2<sup>2</sup> − 1、3<sup>2</sup> − 1、4<sup>2</sup> − 1，底数比序号大 1，故第 n 个等式的右边是 (n + 1)<sup>2</sup> − 1。<br>
       代数验证：n<sup>2</sup> + 2n = (n<sup>2</sup> + 2n + 1) − 1 = (n + 1)<sup>2</sup> − 1，与等式左边一致。</p>
-      <p class="warn">找规律要看"序号 → 数值"的对应关系：n = 1 时右边是 3，代入 (n+1)<sup>2</sup> − 1 得 3，而 n<sup>2</sup> − 1 得 0，故排除 B。</p>
+      <p class="warn">找规律要看“序号 → 数值”的对应关系：n = 1 时右边是 3，代入 (n+1)<sup>2</sup> − 1 得 3，而 n<sup>2</sup> − 1 得 0，故排除 B。</p>
     </div>
   </div>
 
@@ -456,7 +461,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       <div class="ans">
         <p><span class="k">答案：</span>±4</p>
         <p><span class="k">解析：</span>因为 4<sup>2</sup> = 16，(−4)<sup>2</sup> = 16，所以这个数是 4 或 −4，即 ±4。</p>
-        <p class="warn">只写 4 不给分——"平方等于 16 的数"有两个，"16 的算术平方根"才只有一个。</p>
+        <p class="warn">只写 4 不给分——“平方等于 16 的数”有两个，“16 的算术平方根”才只有一个。</p>
       </div>
     </div>
     <div class="q" data-type="blank" data-score="4">
@@ -620,7 +625,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
     <div class="sub-q">
       <p>（1）学校购买 A、B 两种笔记本共 20 本，共花了 196 元，求 A、B 两种笔记本各买了多少本；</p>
       <p>（2）该店推出促销活动：一次性购买 30 本及以上，全部按总价的 9 折付款。学校计划购买 A 种 15 本、B 种 20 本，应付多少元？</p>
-      <p>（3）若学校改为只购买 A 种笔记本 29 本，店员说："您再多买 1 本，总价反而更低。"店员说得对吗？请通过计算说明理由。</p>
+      <p>（3）若学校改为只购买 A 种笔记本 29 本，店员说：“您再多买 1 本，总价反而更低。”店员说得对吗？请通过计算说明理由。</p>
     </div>
     <div class="work-lines"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
@@ -638,7 +643,7 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       若再多买 1 本（共 30 本），可享受 9 折，应付 30×8×0.9 = 216（元）。<br>
       因为 216 &lt; 232，且 232 − 216 = 16（元），<br>
       所以多买 1 本反而少花 16 元，店员说得对。</p>
-      <p class="rubric"><b>评分：</b>(1) 4 分（设元 1 分，列方程 2 分，答 1 分）；(2) 3 分（判断可打折 1 分，算式 1 分，结果 1 分）；(3) 3 分（算出两种情况各 1 分，比较并说明 1 分）。只答"对"而不计算的不得分。</p>
+      <p class="rubric"><b>评分：</b>(1) 4 分（设元 1 分，列方程 2 分，答 1 分）；(2) 3 分（判断可打折 1 分，算式 1 分，结果 1 分）；(3) 3 分（算出两种情况各 1 分，比较并说明 1 分）。只答“对”而不计算的不得分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="10" data-max="10"> / 10 分</div>
   </div>
