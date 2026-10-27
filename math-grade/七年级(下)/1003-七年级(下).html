@@ -478,70 +478,88 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
   <!-- ================= 三、解答题 ================= -->
   <div class="section-title">三、解答题（本大题有 7 小题，共 46 分。解答需写出必要的文字说明、演算步骤或推理过程）</div>
 
-  <div class="q" data-type="essay" data-score="6">
-    <div class="q-head"><span class="q-num">17.</span><span class="q-text">（本题 6 分）计算：</span><span class="tag">整式的乘除</span></div>
+<div class="q" data-type="essay" data-score="6">
+    <div class="q-head"><span class="q-num">17.</span><span class="q-text">（本题 6 分）计算：</span><span class="tag">整式的乘除 · 幂的运算与公式</span></div>
     <div class="sub-q">
-      <p>（1）a<sup>2</sup>·a<sup>4</sup> + (a<sup>3</sup>)<sup>2</sup>；</p>
-      <p>（2）(x + 2y)(x − 2y)。</p>
+      <p>（1）(−a<sup>2</sup>)<sup>3</sup> + a<sup>2</sup>·a<sup>4</sup>；</p>
+      <p>（2）(2x − 3y)<sup>2</sup> − (2x + 3y)(2x − 3y)。</p>
     </div>
-    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
-      <p><span class="k">（1）</span>原式 = a<sup>6</sup> + a<sup>6</sup> = <b>2a<sup>6</sup></b></p>
-      <p><span class="k">（2）</span>原式 = x<sup>2</sup> − (2y)<sup>2</sup> = <b>x<sup>2</sup> − 4y<sup>2</sup></b></p>
-      <p class="rubric"><b>评分：</b>每小题 3 分。(1) 两个幂各 1 分，合并 1 分——注意 2a<sup>6</sup> 与 a<sup>12</sup> 的区别；(2) 公式 2 分，结果 1 分。</p>
+      <p><span class="k">（1）</span>原式 = −a<sup>6</sup> + a<sup>6</sup> = <b>0</b></p>
+      <p><span class="k">（2）</span>方法一（先展开）：<br>
+      原式 = (4x<sup>2</sup> − 12xy + 9y<sup>2</sup>) − (4x<sup>2</sup> − 9y<sup>2</sup>)<br>
+      = 4x<sup>2</sup> − 12xy + 9y<sup>2</sup> − 4x<sup>2</sup> + 9y<sup>2</sup> = <b>−12xy + 18y<sup>2</sup></b></p>
+      <p>方法二（先提公因式）：<br>
+      原式 = (2x − 3y)[(2x − 3y) − (2x + 3y)] = (2x − 3y)·(−6y) = <b>−12xy + 18y<sup>2</sup></b></p>
+      <p class="warn">(1) 的两项结果相同、符号相反，加起来是 0——算出 a<sup>6</sup> 后就收尾的，得 0 分。<br>
+      (−a<sup>2</sup>)<sup>3</sup> 中负号要跟着立方，得 −a<sup>6</sup>，不是 a<sup>6</sup>。</p>
+      <p class="rubric"><b>评分：</b>每小题 3 分。(1) 两个幂各 1 分，结果 0 得 1 分；(2) 两个公式各 1 分，合并 1 分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
   </div>
 
   <div class="q" data-type="essay" data-score="6">
-    <div class="q-head"><span class="q-num">18.</span><span class="q-text">（本题 6 分）解方程组：<span style="white-space:nowrap">{ 3x − y = 5，x + 2y = 4 }</span></span><span class="tag">二元一次方程组 · 代入消元</span></div>
-    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <div class="q-head"><span class="q-num">18.</span><span class="q-text">（本题 6 分）解方程组：<span style="white-space:nowrap">{ 3x + 4y = 10，2x − 3y = 1 }</span></span><span class="tag">二元一次方程组 · 加减消元</span></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
-      <p><span class="k">解：</span>由 3x − y = 5 得 y = 3x − 5。　①</p>
-      <p>把 ① 代入 x + 2y = 4，得 x + 2(3x − 5) = 4，<br>
-      即 7x − 10 = 4，7x = 14，x = 2。</p>
-      <p>把 x = 2 代入 ①，得 y = 3×2 − 5 = 1。</p>
-      <p>所以方程组的解为 <b>x = 2，y = 1</b>。（检验：3×2 − 1 = 5 ✓，2 + 2×1 = 4 ✓）</p>
-      <p class="rubric"><b>评分：</b>正确变形得 y = 3x − 5 得 2 分，代入并求出 x 得 2 分，求出 y 得 1 分，写出解 1 分。</p>
+      <p><span class="k">解：</span>两个方程中未知数的系数都不相同，先"配系数"再加减。<br>
+      ①×3 得 9x + 12y = 30，　③<br>
+      ②×4 得 8x − 12y = 4。　④<br>
+      ③ + ④ 得 17x = 34，解得 <b>x = 2</b>。</p>
+      <p>把 x = 2 代入 ①，得 3×2 + 4y = 10，即 4y = 4，<b>y = 1</b>。</p>
+      <p>所以方程组的解为 <b>x = 2，y = 1</b>。</p>
+      <p>检验：3×2 + 4×1 = 10 ✓；2×2 − 3×1 = 1 ✓</p>
+      <p class="warn">用代入消元法同样给分，但要先把 2x − 3y = 1 化为 x = <span class="frac"><span>1 + 3y</span><span>2</span></span>，代入 3x + 4y = 10 时两边同乘 2 才不会出现分数。</p>
+      <p class="rubric"><b>评分：</b>配系数（①×3、②×4）2 分，消元并求出 x 得 2 分，求出 y 得 1 分，写出解并检验 1 分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
   </div>
 
   <div class="q" data-type="essay" data-score="6">
-    <div class="q-head"><span class="q-num">19.</span><span class="q-text">（本题 6 分）因式分解：</span><span class="tag">因式分解 · 提公因式与公式法</span></div>
+    <div class="q-head"><span class="q-num">19.</span><span class="q-text">（本题 6 分）因式分解：</span><span class="tag">因式分解 · 连续使用公式</span></div>
     <div class="sub-q">
-      <p>（1）mx<sup>2</sup> − my<sup>2</sup>；</p>
-      <p>（2）2a<sup>2</sup> − 8ab + 8b<sup>2</sup>。</p>
+      <p>（1）x<sup>3</sup>y − 4xy<sup>3</sup>；</p>
+      <p>（2）(a<sup>2</sup> + b<sup>2</sup>)<sup>2</sup> − 4a<sup>2</sup>b<sup>2</sup>。</p>
     </div>
-    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
-      <p><span class="k">（1）</span>原式 = m(x<sup>2</sup> − y<sup>2</sup>) = <b>m(x + y)(x − y)</b></p>
-      <p><span class="k">（2）</span>原式 = 2(a<sup>2</sup> − 4ab + 4b<sup>2</sup>) = <b>2(a − 2b)<sup>2</sup></b></p>
-      <p class="warn">第 (2) 题先提 2 后括号内是 a<sup>2</sup> − 4ab + 4b<sup>2</sup>，对应 (a − 2b)<sup>2</sup>，不要写成 (a − 4b)<sup>2</sup>。</p>
-      <p class="rubric"><b>评分：</b>每小题 3 分（提公因式 1 分，用公式 1 分，结果 1 分）。</p>
+      <p><span class="k">（1）</span>原式 = xy(x<sup>2</sup> − 4y<sup>2</sup>)<br>
+      = <b>xy(x + 2y)(x − 2y)</b></p>
+      <p><span class="k">（2）</span>原式 = (a<sup>2</sup> + b<sup>2</sup>)<sup>2</sup> − (2ab)<sup>2</sup><br>
+      = (a<sup>2</sup> + b<sup>2</sup> + 2ab)(a<sup>2</sup> + b<sup>2</sup> − 2ab)<br>
+      = <b>(a + b)<sup>2</sup>(a − b)<sup>2</sup></b></p>
+      <p class="warn">(1) 的公因式是 xy（不是 x），提错会导致 (x<sup>2</sup> − 4y<sup>2</sup>) 变成 (x<sup>2</sup> − 4y)，后面全错。<br>
+      (2) 要把 4a<sup>2</sup>b<sup>2</sup> 看成 (2ab)<sup>2</sup>；两个括号里都要按 a 的降幂重新排列，才看得出是完全平方式。</p>
+      <p class="rubric"><b>评分：</b>每小题 3 分。(1) 提公因式 1 分，平方差 2 分；(2) 看出 (2ab)<sup>2</sup> 得 1 分，平方差 1 分，整理为完全平方式 1 分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
   </div>
 
   <div class="q" data-type="essay" data-score="6">
-    <div class="q-head"><span class="q-num">20.</span><span class="q-text">（本题 6 分）先化简，再求值：(1 − <span class="frac"><span>3</span><span>x + 2</span></span>) ÷ <span class="frac"><span>x<sup>2</sup> − 1</span><span>x + 2</span></span>，其中 x = 4。</span><span class="tag">分式 · 化简求值</span></div>
-    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <div class="q-head"><span class="q-num">20.</span><span class="q-text">（本题 6 分）先化简 (1 − <span class="frac"><span>3</span><span>x + 2</span></span>) ÷ <span class="frac"><span>x<sup>2</sup> − 1</span><span>x + 2</span></span>，再求当化简结果为 <span class="frac"><span>1</span><span>3</span></span> 时 x 的值。</span><span class="tag">分式 · 化简与逆向求值</span></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
-      <p><span class="k">解：</span>原式 = <span class="frac"><span>x + 2 − 3</span><span>x + 2</span></span> ÷ <span class="frac"><span>(x + 1)(x − 1)</span><span>x + 2</span></span><br>
+      <p><span class="k">化简：</span>原式 = <span class="frac"><span>x + 2 − 3</span><span>x + 2</span></span> ÷ <span class="frac"><span>(x + 1)(x − 1)</span><span>x + 2</span></span><br>
       = <span class="frac"><span>x − 1</span><span>x + 2</span></span> × <span class="frac"><span>x + 2</span><span>(x + 1)(x − 1)</span></span><br>
       = <b><span class="frac"><span>1</span><span>x + 1</span></span></b>。</p>
-      <p>当 x = 4 时，原式 = <span class="frac"><span>1</span><span>4 + 1</span></span> = <b><span class="frac"><span>1</span><span>5</span></span></b>。</p>
-      <p class="rubric"><b>评分：</b>通分 2 分，除法转乘法并因式分解 2 分，化简结果 1 分，代入求值 1 分。</p>
+      <p><span class="k">求值：</span>由题意得 <span class="frac"><span>1</span><span>x + 1</span></span> = <span class="frac"><span>1</span><span>3</span></span>，<br>
+      所以 x + 1 = 3，解得 <b>x = 2</b>。</p>
+      <p><span class="k">检验：</span>x = 2 时，x + 2 = 4 ≠ 0，x<sup>2</sup> − 1 = 3 ≠ 0，原式有意义。<br>
+      所以 <b>x = 2</b>。</p>
+      <p class="warn">本题不是"给 x 求值"，而是"给值求 x"，最后一步必须回到原式检验分母是否为零。<br>
+      若化简出错（例如错写成 x + 1），方程会变成 x + 1 = <span class="frac"><span>1</span><span>3</span></span>，得到 x = −<span class="frac"><span>2</span><span>3</span></span>，虽能解出但答案错误。</p>
+      <p class="rubric"><b>评分：</b>通分 2 分，除法转乘法并因式分解 1 分，化简结果 1 分，列方程求 x 得 1 分，检验 1 分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
   </div>
 
   <div class="q" data-type="essay" data-score="8">
-    <div class="q-head"><span class="q-num">21.</span><span class="q-text">（本题 8 分）如图，在 △ABC 中，点 D 在边 BC 上，点 E、F 分别在边 AB、AC 上，且 DE∥AC，DF∥AB。</span><span class="tag">平行线 · 性质与推理</span></div>
+    <div class="q-head"><span class="q-num">21.</span><span class="q-text">（本题 8 分）如图，在 △ABC 中，点 D 在边 BC 上，点 E、F 分别在边 AB、AC 上，且 DE∥AC，DF∥AB。</span><span class="tag">平行线 · 性质与比例推理</span></div>
     <div class="svg-wrap">
       <svg width="380" height="195" viewBox="0 0 380 195" role="img" aria-label="第21题图">
         <polygon points="180,40 110,161 250,161" fill="#eef3fa" stroke="#1e3a5f" stroke-width="1.8"/>
@@ -559,40 +577,56 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
       </svg>
     </div>
     <div class="sub-q">
-      <p>（1）求 ∠EDF 与 ∠A 的数量关系，并说明理由；</p>
-      <p>（2）若 ∠A = 60°，求 ∠EDF 的度数。</p>
+      <p>（1）判断 ∠EDF 与 ∠A 的数量关系，并说明理由；</p>
+      <p>（2）若 ∠C = 50°，且 ∠EDF : ∠BDE = 3 : 2，求 ∠A 的度数。</p>
     </div>
-    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
-      <p><span class="k">（1）</span>∠EDF = ∠A。理由如下：<br>
-      因为 DE∥AC，所以 ∠BED = ∠A（两直线平行，同位角相等）。<br>
-      因为 DF∥AB，所以 ∠EDF = ∠BED（两直线平行，内错角相等）。<br>
-      所以 ∠EDF = ∠A。</p>
-      <p><span class="k">（2）</span>因为 ∠EDF = ∠A，所以 ∠EDF = <b>60°</b>。</p>
-      <p class="rubric"><b>评分：</b>(1) 6 分（两次平行的理由各 2 分，结论 2 分）；(2) 2 分。只写"∠EDF = ∠A"而不写理由的，最多得 2 分。</p>
+      <p><span class="k">（1）</span><b>∠EDF = ∠A</b>。理由如下：<br>
+      因为 DE∥AC，<br>
+      所以 ∠BED = ∠A（两直线平行，同位角相等）。<br>
+      因为 DF∥AB，<br>
+      所以 ∠EDF = ∠BED（两直线平行，内错角相等）。<br>
+      所以 <b>∠EDF = ∠A</b>。</p>
+      <p><span class="k">（2）</span>因为 DE∥AC，<br>
+      所以 ∠BDE = ∠C（两直线平行，同位角相等）。<br>
+      因为 ∠C = 50°，所以 ∠BDE = 50°。</p>
+      <p>又因为 ∠EDF : ∠BDE = 3 : 2，<br>
+      所以 ∠EDF = <span class="frac"><span>3</span><span>2</span></span> × 50° = 75°。</p>
+      <p>由（1）知 ∠A = ∠EDF，所以 <b>∠A = 75°</b>。</p>
+      <p class="warn">(2) 不能直接由 ∠C = 50° 推出 ∠A，必须走"∠C → ∠BDE → 按比例求 ∠EDF → 由（1）得 ∠A"这条链。<br>
+      每一步都要写明用的是哪条平行线的哪个性质（同位角 / 内错角），只写结论不给推理分的扣 2 分。</p>
+      <p class="rubric"><b>评分：</b>(1) 4 分（∠BED = ∠A 得 2 分，∠EDF = ∠BED 得 1 分，结论 1 分）；(2) 4 分（∠BDE = ∠C = 50° 得 2 分，按比例求出 ∠EDF = 75° 得 1 分，结论 ∠A = 75° 得 1 分）。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
   </div>
 
   <div class="q" data-type="essay" data-score="6">
-    <div class="q-head"><span class="q-num">22.</span><span class="q-text">（本题 6 分）某班 40 名学生参加植树活动，男生每人植 3 棵，女生每人植 2 棵，共植树 102 棵。求该班男生、女生各有多少人。</span><span class="tag">二元一次方程组 · 应用</span></div>
-    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <div class="q-head"><span class="q-num">22.</span><span class="q-text">（本题 6 分）已知关于 x、y 的方程组 <span style="white-space:nowrap">{ x + y = 5，2x + ay = 12 }</span> 的解是正整数，求整数 a 的所有可能值，并写出对应的解。</span><span class="tag">二元一次方程组 · 整数解</span></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
-      <p><span class="k">解：</span>设该班有男生 x 人，女生 y 人。</p>
-      <p>依题意得：<span style="white-space:nowrap">{ x + y = 40，3x + 2y = 102 }</span></p>
-      <p>由第一个方程得 y = 40 − x，代入第二个方程：<br>
-      3x + 2(40 − x) = 102，即 x + 80 = 102，x = 22。<br>
-      所以 y = 40 − 22 = 18。</p>
-      <p><b>答：该班有男生 22 人，女生 18 人。</b>（检验：22 + 18 = 40，3×22 + 2×18 = 66 + 36 = 102 ✓）</p>
-      <p class="rubric"><b>评分：</b>设元 1 分，列方程组 3 分，求解 1 分，答 1 分。</p>
+      <p><span class="k">解：</span>由 x + y = 5 得 x = 5 − y，代入 2x + ay = 12，得<br>
+      2(5 − y) + ay = 12，<br>
+      即 10 − 2y + ay = 12，(a − 2)y = 2。</p>
+      <p>因为 x、y 都是正整数，所以 y 是正整数，<br>
+      由 (a − 2)y = 2 知 y 必是 2 的正因数，<br>
+      所以 y = 1 或 y = 2。</p>
+      <p>当 y = 1 时，a − 2 = 2，得 a = 4，此时 x = 4；<br>
+      当 y = 2 时，a − 2 = 1，得 a = 3，此时 x = 3。</p>
+      <p><b>答：整数 a 的值为 3 或 4。</b><br>
+      当 a = 3 时，方程组的解为 x = 3，y = 2；<br>
+      当 a = 4 时，方程组的解为 x = 4，y = 1。</p>
+      <p class="warn">必须排除 a = 2 的情形：此时 (a − 2)y = 2 变成 0·y = 2，无论 y 取何值都不成立，方程组无解。<br>
+      只写"y = 1 或 2"而不说明"y 是 2 的正因数"，推理不完整，扣 1 分。</p>
+      <p class="rubric"><b>评分：</b>消去 x 得 (a − 2)y = 2 得 2 分；由正整数条件确定 y = 1 或 2 得 2 分；求出 a 得两个值并写出对应解 2 分。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="6" data-max="6"> / 6 分</div>
   </div>
 
   <div class="q" data-type="essay" data-score="8">
-    <div class="q-head"><span class="q-num">23.</span><span class="q-text">（本题 8 分）为了解学生每周课外阅读的时间，某校随机抽查了 50 名学生，将所得数据整理后绘制成如下频数直方图（每组含前一个边界值，不含后一个边界值）。</span><span class="tag">数据 · 频数直方图与样本估计</span></div>
+    <div class="q-head"><span class="q-num">23.</span><span class="q-text">（本题 8 分）为了解学生每周课外阅读的时间，某校随机抽查了 50 名学生，将所得数据整理后绘制成如下频数直方图（每组含前一个边界值，不含后一个边界值），其中 4～6 小时这一组的频数未标出。</span><span class="tag">数据 · 频数直方图 · 中位数 · 样本估计</span></div>
     <div class="svg-wrap">
       <svg width="470" height="200" viewBox="0 0 470 200" role="img" aria-label="第23题频数直方图">
         <line x1="106" y1="160" x2="400" y2="160" stroke="#1e3a5f" stroke-width="1.8"/>
@@ -619,25 +653,37 @@ svg{display:block;background:#fcfdfe;border:1px dashed #c2ccd8;border-radius:5px
           <text x="222" y="177">4</text><text x="280" y="177">6</text>
           <text x="338" y="177">8</text><text x="396" y="177">10</text>
         </g>
+        <g font-size="11.5" fill="#1e3a5f" text-anchor="middle">
+          <text x="135" y="131">4</text><text x="193" y="95">10</text>
+          <text x="309" y="83">12</text><text x="367" y="131">4</text>
+        </g>
+        <text x="251" y="66" font-size="15" fill="#b0302a" text-anchor="middle">?</text>
         <text x="54" y="100" font-size="11.5" fill="#1e3a5f">频数</text>
         <text x="356" y="194" font-size="11.5" fill="#1e3a5f">时间（小时）</text>
       </svg>
     </div>
     <div class="sub-q">
-      <p>（1）阅读时间在 0～2 小时这一组的频率是多少？</p>
-      <p>（2）若该校共有 1200 名学生，估计每周课外阅读时间不少于 6 小时的人数；</p>
-      <p>（3）在表示这组数据的扇形统计图中，阅读时间在 4～6 小时这一组对应的扇形圆心角是多少度？</p>
+      <p>（1）求 4～6 小时这一组的频数；</p>
+      <p>（2）求这 50 名学生每周阅读时间的中位数所在的组；</p>
+      <p>（3）若该校共有 1200 名学生，估计每周阅读时间不少于 6 小时的人数，并判断能否达到"40% 的学生达标"的预期目标。</p>
     </div>
-    <div class="work-lines"><i></i><i></i><i></i><i></i></div>
+    <div class="work-lines"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="ans-toggle">答案</button>
     <div class="ans">
-      <p><span class="k">（1）</span>由直方图可知，0～2 小时这一组的频数是 4。<br>
-      频率 = 4 ÷ 50 = <b>0.08</b>。</p>
-      <p><span class="k">（2）</span>不少于 6 小时的是后两组，频数之和为 12 + 4 = 16（人），占样本的 16 ÷ 50 = 0.32。<br>
-      所以估计全校约有 1200 × 0.32 = <b>384</b>（人）。</p>
-      <p><span class="k">（3）</span>4～6 小时这一组的频数为 20，占总数的 20 ÷ 50 = 0.4。<br>
-      对应圆心角 = 360° × 0.4 = <b>144°</b>。</p>
-      <p class="rubric"><b>评分：</b>(1) 2 分（读出频数 1 分，结果 1 分）；(2) 3 分（频数和 2 分，结果 1 分）；(3) 3 分（比例 2 分，结果 1 分）。</p>
+      <p><span class="k">（1）</span>各组频数之和等于样本容量 50，所以<br>
+      4～6 小时这一组的频数 = 50 − (4 + 10 + 12 + 4) = <b>20</b>。</p>
+      <p><span class="k">（2）</span>由小到大累加各组频数：<br>
+      4、14、34、46、50。<br>
+      50 个数据的中位数是第 25 个与第 26 个数据的平均数，<br>
+      累计到第 2 组只有 14，到第 3 组才达到 34，<br>
+      所以第 25、26 个数据都落在 <b>4～6 小时</b>这一组，中位数在 <b>4～6 小时</b>组。</p>
+      <p><span class="k">（3）</span>阅读时间不少于 6 小时的是后两组，频数之和为 12 + 4 = 16。<br>
+      样本中的达标率 = <span class="frac"><span>16</span><span>50</span></span> = 0.32 = 32%。<br>
+      估计全校约有 1200 × 0.32 = <b>384</b>（人）。<br>
+      因为 32% &lt; 40%，所以<b>不能达到</b>预期的 40% 目标。</p>
+      <p class="warn">(2) 中位数只看<b>位置</b>（第 25、26 个），不要与"频数最多的组"（4～6 小时，20 人）混淆——本题恰好两者相同，换成第 (1) 题的 2～4 小时组就会不同。<br>
+      (3) 的"能否达到"必须用数据比较作答，只写"384 人"不下结论的扣 1 分。</p>
+      <p class="rubric"><b>评分：</b>(1) 2 分（补出频数 20）；(2) 3 分（累计频数 2 分，结论 1 分）；(3) 3 分（估计人数 2 分，比较并判断未达标 1 分）。</p>
     </div>
     <div class="self-row">自评：<input type="number" class="selfscore" min="0" max="8" data-max="8"> / 8 分</div>
   </div>
